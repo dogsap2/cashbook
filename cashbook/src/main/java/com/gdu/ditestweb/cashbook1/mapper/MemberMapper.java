@@ -8,6 +8,7 @@ import com.gdu.ditestweb.cashbook1.vo.Member;
 @Mapper
 public interface MemberMapper {
 	
+	public String selectMemberId(String memberIdCheck);
 	public int insertMember(Member member);
 	public LoginMember selectLoginMember(LoginMember loginMember);
 }

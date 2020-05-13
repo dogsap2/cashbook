@@ -4,10 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.ditestweb.cashbook1.mapper.MemberMapper">
 
+<select id="selectMemberId"
+		parameterType="String"
+		resultType="String">
+	select
+		member_id
+	from member
+	where member_id = #{memberIdCheck}
+</select>
+
+
 
 <select id="selectLoginMember" 
-		parameterType="com.gdu.ditestweb.cashbook1.vo.LoginMember"
-		resultType="com.gdu.ditestweb.cashbook1.vo.LoginMember">
+			parameterType="com.gdu.ditestweb.cashbook1.vo.LoginMember"
+			resultType="com.gdu.ditestweb.cashbook1.vo.LoginMember">
 	 	select
 	 		member_id as memberId,
 	 		member_pw as memberPw

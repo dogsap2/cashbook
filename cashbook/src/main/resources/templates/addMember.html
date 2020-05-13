@@ -58,6 +58,10 @@ $(document).ready(function(){
 			$('#myform').submit();
 		}
 	});
+	
+	$('#idBtn').click(function(){
+		$('#idForm').submit();
+	});
 });
 
 </script>
@@ -65,10 +69,18 @@ $(document).ready(function(){
 <body>
 	<div class="container">
 		<h1>회원가입</h1>
+		<form id="idForm" method="post" action="/checkMemberId"> <!-- 아이디 중복 체크에 사용할 폼 -->
+			<div>
+				아이디 중복 확인 :<input type="text" name="memberIdCheck" id="memberIdCheck">	
+				<button id ="idBtn" type="button">중복체크</button>
+				<span th:text="${msg}"></span>
+			</div>	
+		</form>
+			
 		<form method="post" action="/addMember" id="myform">
 			<!-- name속성은 보내기 id속성은 css/제이쿼리에서. -->
 			<div>
-				아이디 :<input type="text" name="memberId" id="memberId">
+				아이디 :<input type="text" th:value="${memberIdCheck}" name="memberId" id="memberId" readonly="readonly">
 				<span id="idHelper"></span>
 			</div>
 			<div>

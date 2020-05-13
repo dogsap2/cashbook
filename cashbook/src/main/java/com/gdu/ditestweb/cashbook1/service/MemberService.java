@@ -14,6 +14,10 @@ public class MemberService {
 	@Autowired
 	private MemberMapper memberMapper;
 	
+	public String checkMemberId(String memberIdCheck) {
+		return memberMapper.selectMemberId(memberIdCheck); //둘 중에 하나가 리턴됨 결과물 있으면 멤버아이디, 없으면 null
+	}
+	
 	public LoginMember login(LoginMember loginMember) {
 		return memberMapper.selectLoginMember(loginMember);
 	}

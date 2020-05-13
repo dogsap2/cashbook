@@ -19,31 +19,49 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script>
+let helperInit = function(){
+	$('#idHelper').text("");
+	$('#pwHelper').text("");
+};
+
+
 $(document).ready(function(){
 	 $('#btn').click(function(){
 		 //유효성 검사 코드 구현
-	 //if(){
-	 //	 return;
-	 // }	 		 
+	 if($('#memberId').val().length===0){ 
+		helperInit();
+		$('#idHelper').text("아이디를 입력해주세요.");
+		$('#memberId').focus();
+	 return;
+	 }	 	
+	 if($('#memberPw').val().length===0){
+		 helperInit();
+	    $('#pwHelper').text("비밀번호를 입력해주세요");
+		$('#memberPw').focus();
+	 return;
+	 }	
 	 $('#loginForm').submit();
    }); 
 });
-
 </script>
-
 </head>
 <body>
 	<h1>로그인</h1>
 	<form method="post" action="/login" id="loginForm">
 		<div>
 			member_id : <input type="text" id="memberId" name="memberId">
+			<span id="idHelper"></span>
 		</div>
 		<div>
-			member_pw : <input type="text" id="memberPw" name="memberPw">
+			member_pw : <input type="password" id="memberPw" name="memberPw">
+			<span id="pwHelper"></span>
+		</div>
+		<div>
+			<span th:text="${msg}"></span>
 		</div>
 		<div>
 			<button type="button" id="btn">로그인</button>
-		</div>
+		</div>	
 	</form>
 </body>
 </html>
