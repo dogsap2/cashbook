@@ -3,6 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.ditestweb.cashbook1.mapper.MemberMapper">
+
+
+<select id="selectLoginMember" 
+		parameterType="com.gdu.ditestweb.cashbook1.vo.LoginMember"
+		resultType="com.gdu.ditestweb.cashbook1.vo.LoginMember">
+	 	select
+	 		member_id as memberId,
+	 		member_pw as memberPw
+	 	from member
+	 	where member_id = #{memberId}
+	 	and member_pw = #{memberPw}
+</select>
 <insert id="insertMember" parameterType="com.gdu.ditestweb.cashbook1.vo.Member">
 		insert into member(
 			member_id,
@@ -11,7 +23,8 @@
 			member_addr,
 			member_phone,
 			member_email
-		) values (
+		) values ( 
+		<!-- #동적 $정적 #{}에 필드이름 적으면 셋터가 알아서 호출됨.-->
 			#{memberId},
 			#{memberPw},
 			#{memberName},
@@ -19,5 +32,5 @@
 			#{memberPhone},
 			#{memberEmail}
 		)
-	</insert>
+</insert>
 </mapper>
