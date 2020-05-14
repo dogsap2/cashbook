@@ -60,6 +60,11 @@ $(document).ready(function(){
 	});
 	
 	$('#idBtn').click(function(){
+		//아이디 체크할떄도 4자이상 입력하세여
+		if($('#memberId').val().length<4){
+			$('#memberIdCheck').text("id 4자이상 입력해주세요.");
+			return;
+		}
 		$('#idForm').submit();
 	});
 });
@@ -73,6 +78,7 @@ $(document).ready(function(){
 			<div>
 				아이디 중복 확인 :<input type="text" name="memberIdCheck" id="memberIdCheck">	
 				<button id ="idBtn" type="button">중복체크</button>
+				<span id="memberIdCheck"></span>
 				<span th:text="${msg}"></span>
 			</div>	
 		</form>

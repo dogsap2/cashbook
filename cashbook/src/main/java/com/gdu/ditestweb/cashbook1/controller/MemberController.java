@@ -69,7 +69,7 @@ public class MemberController {
 			return "login";
 		}else{ //로그인 성공시 (db서치 결과가 있으면 회원이니 로그인 성공)
 			session.setAttribute("loginMember", returnLoginMember);
-			return "redirect:/";
+			return "redirect:/home";
 		}
 	}
 	
