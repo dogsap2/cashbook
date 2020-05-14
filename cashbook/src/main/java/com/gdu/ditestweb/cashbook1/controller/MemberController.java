@@ -20,6 +20,20 @@ public class MemberController {
 	
 	
 	
+    @GetMapping("/memberInfo")
+	public String memberInfo(HttpSession session,Model model) {
+		//로그인이 아닐때!
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/";
+		}
+										//session엔 오브젝트 타입이 들어가있어서 뭐든 다담을 수 있어요. 참조형은 다 가능. 사실 기본형은 불가인데 *오토박싱으로 가능
+		Member member = memberService.getMemberOne((LoginMember)(session.getAttribute("loginMember")));//오브젝트 타입을 loginMember로 형변환.
+		System.out.println(member);
+		model.addAttribute("member", member);
+			return "memberInfo";
+	}
+	
+	
 	@PostMapping("/checkMemberId")
 	public String checkMemberId(HttpSession session, Model model,@RequestParam("memberIdCheck") String memberIdCheck){
 		//로그인 중일때
