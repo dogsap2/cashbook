@@ -2,41 +2,63 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gdu.ditestweb.cashbook1.mapper.MemberMapper">
+<mapper
+	namespace="com.gdu.ditestweb.cashbook1.mapper.MemberMapper">
+	<update id="updateMember"
+		parameterType="com.gdu.ditestweb.cashbook1.vo.Member">
+		update member
+		set
+			member_pw = PASSWORD(#{memberPw}),
+			member_name =  #{memberName},
+			member_addr =  #{memberAddr},
+			member_phone = #{memberPhone},
+			member_email = #{memberEmail}
+		where member_id  = #{memberId}
+	</update>
 
-<select id="selectMemberOne" 
-			parameterType="com.gdu.ditestweb.cashbook1.vo.LoginMember"
-			resultType="com.gdu.ditestweb.cashbook1.vo.Member">
-	select
-		member_id as memberId,
-		member_name as memberName,
-		member_addr as memberAddr,
-		member_phone as memberPhone,
-		member_email as memberEmail
-	from member
-	where member_id = #{memberId}
-</select>
+	<delete id="deleteMemberOne"
+		parameterType="com.gdu.ditestweb.cashbook1.vo.LoginMember">
+		delete
+		from member
+		where member_id = #{memberId}
+		and member_pw = #{memberPw}
+	</delete>
 
-<select id="selectMemberId"
-		parameterType="String"
+	<select id="selectMemberOne"
+		parameterType="com.gdu.ditestweb.cashbook1.vo.LoginMember"
+		resultType="com.gdu.ditestweb.cashbook1.vo.Member">
+		select
+			member_id as memberId,
+			member_name as memberName,
+			member_addr as memberAddr,
+			member_phone as memberPhone,
+			member_email as memberEmail
+		from member
+		where member_id = #{memberId}
+	</select>
+
+	<select id="selectMemberId" parameterType="String"
 		resultType="String">
-	select
-		member_id
-	from member
-	where member_id = #{memberIdCheck}
-</select>
+		select
+		me
+		from ( SELECT member_id as me FROM member
+		UNION
+		SELECT member_id as me FROM memberid)t
+		where me = #{memberIdCheck}
+	</select>
 
-<select id="selectLoginMember" 
-			parameterType="com.gdu.ditestweb.cashbook1.vo.LoginMember"
-			resultType="com.gdu.ditestweb.cashbook1.vo.LoginMember">
-	 	select
-	 		member_id as memberId,
-	 		member_pw as memberPw
-	 	from member
-	 	where member_id = #{memberId}
-	 	and member_pw = #{memberPw}
-</select>
-<insert id="insertMember" parameterType="com.gdu.ditestweb.cashbook1.vo.Member">
+	<select id="selectLoginMember"
+		parameterType="com.gdu.ditestweb.cashbook1.vo.LoginMember"
+		resultType="com.gdu.ditestweb.cashbook1.vo.LoginMember">
+		select
+			member_id as memberId,
+			member_pw as memberPw
+		from member
+		where member_id = #{memberId}
+		and member_pw = PASSWORD(#{memberPw})
+	</select>
+	<insert id="insertMember"
+		parameterType="com.gdu.ditestweb.cashbook1.vo.Member">
 		insert into member(
 			member_id,
 			member_pw,
@@ -44,14 +66,14 @@
 			member_addr,
 			member_phone,
 			member_email
-		) values ( 
-		<!-- #동적 $정적 #{}에 필드이름 적으면 셋터가 알아서 호출됨.-->
+		) values (
+		<!-- #동적 $정적 #{}에 필드이름 적으면 셋터가 알아서 호출됨. -->
 			#{memberId},
-			#{memberPw},
+			PASSWORD(#{memberPw}), <!-- 암호화 -->
 			#{memberName},
 			#{memberAddr},
 			#{memberPhone},
 			#{memberEmail}
 		)
-</insert>
+	</insert>
 </mapper>

@@ -18,6 +18,55 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 	
+	//회원 수정
+	@GetMapping("/modifyMember")
+	public String modifyMember(HttpSession session,Model model) {
+		//로그인이 아닐때!
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/";
+		}
+		Member member = memberService.getMemberOne((LoginMember)(session.getAttribute("loginMember")));
+		System.out.println(member+"<----member");
+		model.addAttribute("member",member);
+		return "modifyMember";
+	}
+	
+	@PostMapping("/modifyMember")
+	public String modifyMember(HttpSession session,Member member){
+		//로그인이 아닐때!
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/";
+		}
+		memberService.modifyMember(member);
+		return "redirect:/";
+	}
+	
+	//회원 탈퇴
+	@GetMapping("/removeMember")
+	public String memberDelete(HttpSession session) {
+		//로그인이 아닐때!
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/";
+		}
+		return "removeMember";//input type = "password" 입력하도록.
+	}
+	
+	@PostMapping("/removeMember")
+	
+	public String memberDelete(HttpSession session, @RequestParam("memberPw") String memberPw) {
+		//로그인이 아닐때!
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/";
+		}
+		//로컬변수(임시변수)선언 이메소드를 실행하기 위해서만 사용하기위한 변수
+		LoginMember loginMember = (LoginMember)(session.getAttribute("loginMember"));
+		loginMember.setMemberPw(memberPw);
+		memberService.removeMember(loginMember);
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
 	
 	
     @GetMapping("/memberInfo")
@@ -50,7 +99,7 @@ public class MemberController {
 		}else{
 			//아이디를 사용할 수 없다.
 			System.out.println("아이디를 사용할 수 없다.");
-			model.addAttribute("msg", "사용중인 아이디입니다.");
+			model.addAttribute("msg", "아이디를 사용할 수 없습니다.");
 	
 		}
 		return "addMember";
