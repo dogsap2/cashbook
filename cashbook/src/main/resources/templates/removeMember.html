@@ -19,43 +19,31 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script>
+let helperInit = function(){
+	$('#pwHelper').text("");
+}
+
 $(document).ready(function(){
 	$('#btn').click(function(){
 		if($('#memberPw').val().length<4){
 			helperInit();
 			$('#pwHelper').text("pw 4자이상");
 			$('#memberPw').focus();
-		}else if($('#memberPw').val() != $('#memberPw2').val()){
-			helperInit();
-			$('#pwHelper').text("pw를 확인하세요");
-			$('#memberPw').focus();
 		}else{
 			$('#myform').submit();
 		}
 	});
-	
-	$('#idBtn').click(function(){
-		//아이디 체크할떄도 4자이상 입력하세여
-		if($('#memberIdCheck').val().length<4){
-			$('#memberIdCheckHelper').text("id 4자이상 입력해주세요.");
-			$('#memberIdCheck').focus();
-			return;
-		}
-		$('#idForm').submit();
-	});
 });
-
 </script>
 </head>
 <body>
-	<form method="post" action="/removeMember" id="idForm">
-
+	<form method="post" action="/removeMember" id="myform">
 		<div>
-			비밀번호 :<input type="password" name="memberPw" id="memberPw"> <span
-				id="pwHelper"></span>
+			비밀번호 :<input type="password" name="memberPw" id="memberPw"> 
+			<span id="pwHelper"></span>
 		</div>
 		<div>
-			비밀번호확인 :<input type="text" id="memberPw2">
+			<button type="button" id="btn">확인</button>
 		</div>
 	</form>
 </body>

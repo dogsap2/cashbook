@@ -4,6 +4,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.gdu.ditestweb.cashbook1.mapper.MemberMapper">
+	
+	<!-- 비밀번호 찾기
+	2.사용자가 입력한 ID와 EMAIL이 일치하면 PW를 변경(랜덤문자열) UPDATE
+	3.2번에서 입력한 pw를 메일로 전송
+	 -->
+	<update id="updateMemberPw"
+			parameterType="com.gdu.ditestweb.cashbook1.vo.Member">
+		update member
+		set member_pw = PASSWORD(#{memberPw})
+		where member_id = #{memberId}
+		and member_email = #{memberEmail} 
+	</update>
+
+	
+	<select id="selectMemberIdByMember"
+		parameterType="com.gdu.ditestweb.cashbook1.vo.Member"
+		resultType="String">
+		<!--  아이디 앞3개랑 뒤에 별4개가 붙어서 출력됩니다. -->
+		SELECT
+		 CONCAT(SUBSTRING(member_id,1,3),'****') <!-- concat  합치다 -->
+ 		FROM member
+ 		WHERE member_name = #{memberName}
+	</select>
+	
+	
+	
 	<update id="updateMember"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.Member">
 		update member
@@ -18,8 +44,7 @@
 
 	<delete id="deleteMemberOne"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.LoginMember">
-		delete
-		from member
+		delete from member
 		where member_id = #{memberId}
 		and member_pw = #{memberPw}
 	</delete>
@@ -32,7 +57,8 @@
 			member_name as memberName,
 			member_addr as memberAddr,
 			member_phone as memberPhone,
-			member_email as memberEmail
+			member_email as memberEmail,
+			member_pic as memberPic
 		from member
 		where member_id = #{memberId}
 	</select>

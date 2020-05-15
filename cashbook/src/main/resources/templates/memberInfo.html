@@ -28,6 +28,13 @@
 	<!-- 멤버 정보 -->
 	<table class="table">
 		<tr>
+			<td th:text="${member.memberPic}"></td>
+			<td>
+			<!-- 디폴트 말고 내 사진을 업로드해쓰면 내 사진이 보이고싶다. -->
+				<img th:src="@{${'/upload/'+member.memberPic}}">
+			</td>
+		</tr>
+		<tr>
 			<td>아이디</td>
 			<td th:text="${member.memberId}"></td>
 		</tr>
