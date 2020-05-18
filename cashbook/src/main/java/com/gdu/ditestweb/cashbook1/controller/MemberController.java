@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gdu.ditestweb.cashbook1.service.MemberService;
 import com.gdu.ditestweb.cashbook1.vo.LoginMember;
 import com.gdu.ditestweb.cashbook1.vo.Member;
+import com.gdu.ditestweb.cashbook1.vo.MemberForm;
 
 @Controller
 public class MemberController {
@@ -30,8 +31,8 @@ public class MemberController {
 	@PostMapping("/findMemberPw")
 	public String findMemberPw(HttpSession session, Model model, Member member) {
 		int row = memberService.getMemberPw(member);
-		String msg ="아이디와 메일을 확인하세요.";
-		if(row ==1) {
+		String msg = "아이디와 메일을 확인하세요.";
+		if (row == 1) {
 			msg = "비밀번호를 입력한 메일로 전송하겠습니다.";
 		}
 		model.addAttribute("msg", msg);
@@ -78,7 +79,8 @@ public class MemberController {
 			return "redirect:/";
 		}
 		memberService.modifyMember(member);
-		return "redirect:/";
+		System.out.println(member + "<====update member");
+		return "memberInfo";
 	}
 
 	// 회원 탈퇴
@@ -98,13 +100,15 @@ public class MemberController {
 			return "redirect:/";
 		}
 		// 로컬변수(임시변수)선언 이메소드를 실행하기 위해서만 사용하기위한 변수
-		LoginMember loginMember = (LoginMember)(session.getAttribute("loginMember"));
+		LoginMember loginMember = (LoginMember) (session.getAttribute("loginMember"));
 		loginMember.setMemberPw(memberPw);
-		System.out.println(loginMember+"<=======remove loginMember");
-		memberService.removeMember(loginMember);
-		session.invalidate();
-
-		return "redirect:/";
+		System.out.println(loginMember + "<=======remove loginMember");
+		int row = memberService.removeMember(loginMember);
+		if (row == 1) {
+			session.invalidate();
+			return "redirect:/";
+		}
+		return "removeMember";
 	}
 
 	@GetMapping("/memberInfo")
@@ -193,21 +197,31 @@ public class MemberController {
 		if (session.getAttribute("loginMember") != null) {
 			return "redirect:/";
 		}
-
 		return "addMember";
 	}
 
 	@PostMapping("/addMember")
-	public String addMember(Member member, HttpSession session) {// Commend 객체 , 도메인 객체
+	public String addMember(MemberForm memberForm, HttpSession session) {
+		////Command 객체, 도메인 객체 , 전부다 받아서 Member 타입으로 바꿔줌, (뷰)폼의  name이 vo안 이름과 같아야됨 
 		// 로그인 중일때
 		if (session.getAttribute("loginMember") != null) {
 			return "redirect:/";
 		}
-
-		System.out.println(member.toString());
-		memberService.addMember(member);
+		System.out.println(memberForm+"<-memberForm");
+		
+		//파일은 png,jpg,gif만 업로드 가능
+		if(memberForm.getMemberPic()!= null) {
+			if(!memberForm.getMemberPic().getContentType().equals("image/png")
+			&& !memberForm.getMemberPic().getContentType().equals("image/jpeg")
+			&& !memberForm.getMemberPic().getContentType().equals("image/gif")){
+				return "redirect:/addMember";
+			}
+		memberService.addMember(memberForm);
+		// 서비스 : 멤버폼->멤버+폴더 에 파일도 저장
+		}
 		return "redirect:/index";
 	}
+}
 	/*
 	 * @PostMapping("/addMember") public String addMember(@RequestParam("memberId")
 	 * String memberId,
@@ -224,4 +238,4 @@ public class MemberController {
 	 * 
 	 * 
 	 */
-}
+

@@ -5,6 +5,17 @@
 <mapper
 	namespace="com.gdu.ditestweb.cashbook1.mapper.MemberMapper">
 	
+	<select id = "selectMemberPic" parameterType="String" resultType="String">
+		SELECT member_pic
+		FROM member
+		WHERE member_id = #{memberId}
+	
+	
+	</select>
+	
+	
+	
+	
 	<!-- 비밀번호 찾기
 	2.사용자가 입력한 ID와 EMAIL이 일치하면 PW를 변경(랜덤문자열) UPDATE
 	3.2번에서 입력한 pw를 메일로 전송
@@ -41,12 +52,12 @@
 			member_email = #{memberEmail}
 		where member_id  = #{memberId}
 	</update>
-
+ 	<!-- 현재 로그인한 멤버 회원 탈퇴 -->
 	<delete id="deleteMemberOne"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.LoginMember">
 		delete from member
 		where member_id = #{memberId}
-		and member_pw = #{memberPw}
+		and member_pw = PASSWORD(#{memberPw})
 	</delete>
 
 	<select id="selectMemberOne"
@@ -91,7 +102,8 @@
 			member_name,
 			member_addr,
 			member_phone,
-			member_email
+			member_email,
+			member_pic
 		) values (
 		<!-- #동적 $정적 #{}에 필드이름 적으면 셋터가 알아서 호출됨. -->
 			#{memberId},
@@ -99,7 +111,8 @@
 			#{memberName},
 			#{memberAddr},
 			#{memberPhone},
-			#{memberEmail}
+			#{memberEmail},
+			#{memberPic}
 		)
 	</insert>
 </mapper>

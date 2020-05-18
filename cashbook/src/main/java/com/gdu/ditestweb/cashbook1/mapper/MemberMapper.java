@@ -7,6 +7,9 @@ import com.gdu.ditestweb.cashbook1.vo.Member;
 
 @Mapper //@Mapper는 Component를 상속받았대요 
 public interface MemberMapper {
+	
+	//d아이디를 입력하면 pic을 뱉는
+	public String selectMemberPic(String memberId);
 	//비밀번호 찾기
 	public int updateMemberPw(Member member);
 	//아이디 찾기

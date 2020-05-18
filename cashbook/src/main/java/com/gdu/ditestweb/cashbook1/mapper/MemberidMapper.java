@@ -6,5 +6,5 @@ import com.gdu.ditestweb.cashbook1.vo.Memberid;
 
 @Mapper
 public interface MemberidMapper {
-	void insertMemberid(Memberid memberid);
+	int insertMemberid(Memberid memberid);
 }

@@ -75,7 +75,7 @@ $(document).ready(function(){
 <body>
 	<div class="container">
 		<h1>회원가입</h1>
-		<form id="idForm" method="post" action="/checkMemberId"> <!-- 아이디 중복 체크에 사용할 폼 -->
+		<form id="idForm" method="post" action="/checkMemberId" enctype="application/x-www-form-urlencoded"> <!-- 아이디 중복 체크에 사용할 폼 -->
 			<div>
 				아이디 중복 확인 :<input type="text" name="memberIdCheck" id="memberIdCheck">	
 				<button id ="idBtn" type="button">중복체크</button>
@@ -84,7 +84,15 @@ $(document).ready(function(){
 			</div>	
 		</form>
 			
-		<form method="post" action="/addMember" id="myform">
+			
+		<form method="post" action="/addMember" id="myform" enctype="multipart/form-data">
+		<!-- enctype="application/x-www-form-urlencoded" 글자형태로 전송 -->
+		<!-- enctype="multipart/form-data" 바이트형태로 전송  -->
+			<div>
+				사진:
+				<input type ="file" name="memberPic" id="">
+			</div>
+		
 			<!-- name속성은 보내기 id속성은 css/제이쿼리에서. -->
 			<div>
 				아이디 :<input type="text" th:value="${memberIdCheck}" name="memberId" id="memberId" readonly="readonly">
@@ -95,7 +103,7 @@ $(document).ready(function(){
 				<span id="pwHelper"></span>
 			</div>
 			<div>
-				비밀번호확인 :<input type="text" id="memberPw2">
+				비밀번호확인 :<input type="password" id="memberPw2">
 			</div>
 			<div>
 				사용자이름 :<input type="text" name="memberName" id="memberName">

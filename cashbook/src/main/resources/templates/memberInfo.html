@@ -31,7 +31,7 @@
 			<td th:text="${member.memberPic}"></td>
 			<td>
 			<!-- 디폴트 말고 내 사진을 업로드해쓰면 내 사진이 보이고싶다. -->
-				<img th:src="@{${'/upload/'+member.memberPic}}">
+				<img th:src="@{${'/upload/'+member.memberPic}}" width="400" height="500">
 			</td>
 		</tr>
 		<tr>

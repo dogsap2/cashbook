@@ -42,6 +42,10 @@
 				helperInit();
 				$('#pwHelper').text("pw 4자이상");
 				$('#memberPw').focus();
+			}else if ($('#memberName').val().length<4){
+				helperInit();
+				$('#nameHelper').text("닉네임4자이상");
+				$('#memberName').focus();
 			} else if($('#memberPw').val() != $('#memberPw2').val()){
 				helperInit();
 				$('#pwHelper').text("pw를 확인하세요");
@@ -60,6 +64,10 @@
 		<div>
 			아이디 :<input type="text" th:value="${member.memberId}" name="memberId"
 				id="memberId" readonly="readonly"> <span id="idHelper"></span>
+		</div>
+		<div>
+			 닉네임 :<input type="text" name="memberName" id="memberName"
+				th:value="${member.memberName}"> <span id="namerHelper"></span>
 		</div>
 		<div>
 			주소 :<input type="text" name="memberAddr" id="memberAddr"

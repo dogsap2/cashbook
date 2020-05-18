@@ -20,7 +20,6 @@ public class CashbookApplication {// 프로퍼티즈 파일
 //컨피규레이트 기능 스프링에 이런이런이런 거 만들어주세요
 //@SpringBootApplication == @Configuration + @EnableAutoConfiguration + @ComponentScan
 
-
 	public static void main(String[] args) {
 		SpringApplication.run(CashbookApplication.class, args);
 	}
@@ -34,6 +33,7 @@ public class CashbookApplication {// 프로퍼티즈 파일
 		javaMailSender.setPort(587);
 		javaMailSender.setUsername(username);
 		javaMailSender.setPassword(password);
+		
 		Properties prop = new Properties(); // Properties == HashMap<String,String>
 		prop.setProperty("mail.smtp.auth", "true");
 		prop.setProperty("mail.smtp.starttls.enable", "true");

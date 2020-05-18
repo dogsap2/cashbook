@@ -37,6 +37,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+<div th:include="/include/menu::sidemenu"></div> 
 	<form method="post" action="/removeMember" id="myform">
 		<div>
 			비밀번호 :<input type="password" name="memberPw" id="memberPw"> 
