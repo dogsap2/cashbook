@@ -10,12 +10,9 @@
 		FROM member
 		WHERE member_id = #{memberId}
 	
-	
 	</select>
 	
-	
-	
-	
+
 	<!-- 비밀번호 찾기
 	2.사용자가 입력한 ID와 EMAIL이 일치하면 PW를 변경(랜덤문자열) UPDATE
 	3.2번에서 입력한 pw를 메일로 전송
@@ -49,7 +46,8 @@
 			member_name =  #{memberName},
 			member_addr =  #{memberAddr},
 			member_phone = #{memberPhone},
-			member_email = #{memberEmail}
+			member_email = #{memberEmail},
+			member_pic = #{memberPic}
 		where member_id  = #{memberId}
 	</update>
  	<!-- 현재 로그인한 멤버 회원 탈퇴 -->

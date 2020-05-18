@@ -19,16 +19,15 @@
 <body>
 	<div class="container">
 		<h1>가계부</h1>
-		
 		<!-- 세션분기 -->
+		<!--로그인 상태일 시 보여지는 링크 -->
 		<div th:if="${session.loginMember != null}">
 			<a href="/logout" class="btn btn-primary">로그아웃</a>
 		</div>
-		
+		<!--로그아웃 상태일 시 보여지는 링크 -->
 		<div th:if="${session.loginMember == null}">
 			<a href="/login" class="btn btn-primary">로그인</a>
 		</div>
-		
 		<div>
 			<a href="/addMember" class="btn btn-primary">회원가입</a>
 		</div>

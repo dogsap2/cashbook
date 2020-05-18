@@ -27,10 +27,10 @@ public class MemberService {
 	@Autowired
 	private MemberidMapper memberidMapper;
 	@Autowired
-	private JavaMailSender javaMailSender; // @Component와 아이들....
+	private JavaMailSender javaMailSender; // @Component와 아이F들....
 	@Value("D:\\git-cashbook\\cashbook\\src\\main\\resources\\static\\upload\\")
 	private String path;
-	
+
 	public int getMemberPw(Member member) {
 		// 임시 pw추가
 		UUID uuid = UUID.randomUUID();
@@ -58,13 +58,13 @@ public class MemberService {
 
 	// 삭제
 	public int removeMember(LoginMember loginMember) {
-		
-		//1.멤버 이미지 파일 삭제
-		//1_1 파일 이름 select member_pic from member
+
+		// 1.멤버 이미지 파일 삭제
+		// 1_1 파일 이름 select member_pic from member
 		String memberPic = memberMapper.selectMemberPic(loginMember.getMemberId());
-		//1_2 파일 삭제
-		File file = new File(path+memberPic);
-		if(file.exists()) { //파일이 있으면 삭제해주세요.
+		// 1_2 파일 삭제
+		File file = new File(path + memberPic);
+		if (file.exists()) { // 파일이 있으면 삭제해주세요.
 			file.delete();
 		}
 		// 1..멤버아이디 하나 추가
@@ -72,16 +72,48 @@ public class MemberService {
 		memberid.setMemberId(loginMember.getMemberId());
 		System.out.println(memberid + "<=====memberId");
 		int row = memberMapper.deleteMemberOne(loginMember);
-		
-		int row1=0;
-		if(row == 1) {
-		row1 =	memberidMapper.insertMemberid(memberid);
+
+		int row1 = 0;
+		if (row == 1) {
+			row1 = memberidMapper.insertMemberid(memberid);
 		}
 		return row1;
 	}
 
-	public int modifyMember(Member member) {
-		return memberMapper.updateMember(member);
+	// 수정
+	public int modifyMember(MemberForm memberForm) {
+		
+		MultipartFile mf = memberForm.getMemberPic();
+		String originName = mf.getOriginalFilename();
+		System.out.println(originName);
+
+		int lastDot = originName.lastIndexOf("."); // 오리진 파일에서 .을 찾아주세요 좌석표.png
+		String extension = originName.substring(lastDot); // 점앞에 다자르기 //원래 이름에서(오리진네임) -> 확장자 구현.->
+		// 새로운 아름을 생성 : UUID
+		String memberPic = memberForm.getMemberId() + extension;
+		// 1.db에서 저장
+		Member member = new Member();
+		member.setMemberId(memberForm.getMemberId());
+		member.setMemberPw(memberForm.getMemberPw());
+		member.setMemberAddr(memberForm.getMemberAddr());
+		member.setMemberEmail(memberForm.getMemberEmail());
+		member.setMemberName(memberForm.getMemberName());
+		member.setMemberPhone(memberForm.getMemberPhone());
+		member.setMemberPic(memberPic);
+		System.out.println(member + "<---memberService.addMember:member");
+		
+		int row = memberMapper.updateMember(member);
+		File file = new File(path + memberPic);
+		try {
+			mf.transferTo(file);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+			// Exception
+			// 1. 예외처리를 해야만 문법적으로 이상없는 예외
+			// 2. 예외처리를 코드에서 구현하지 않아도 아무문제없는 예외 runtimeException
+		}
+		return row;
 	}
 
 	// public int removeMember(LoginMember loginMember) {
@@ -99,27 +131,28 @@ public class MemberService {
 	public LoginMember login(LoginMember loginMember) {
 		return memberMapper.selectLoginMember(loginMember);
 	}
-	
-	//추가
-	//파일을 넘기기위해서느는 enctype 설정, 그리고 파일이 넘어왔기떄문에 파일을 받아야되기때문에 컨트롤러에서 멀티파트파일을 받아야해서 vo에 맴버폼 만들어서 넘김
+
+	// 추가
+	// 파일을 넘기기위해서느는 enctype 설정, 그리고 파일이 넘어왔기떄문에 파일을 받아야되기때문에 컨트롤러에서 멀티파트파일을 받아야해서
+	// vo에 맴버폼 만들어서 넘김
 	public int addMember(MemberForm memberForm) {
 		MultipartFile mf = memberForm.getMemberPic();
-		//확장자 필요
+		// 확장자 필요
 		String originName = mf.getOriginalFilename();
-		
+
 //		if(mf.getContentType().equals("image.png")|| mf.getContentType().equals("image/jpeg")) {
 //			//업로드
 //		}else {
 //			//업로드실패
 //		}
 		System.out.println(originName);
-		
-		int lastDot = originName.lastIndexOf("."); //오리진 파일에서 .을 찾아주세요  좌석표.png
-		String extension = originName.substring(lastDot); //점앞에 다자르기  //원래 이름에서(오리진네임) -> 확장자 구현.->
-		
-		//새로운 아름을 생성 : UUID
-		String memberPic = memberForm.getMemberId()+extension;
-		//1.db에서 저장
+
+		int lastDot = originName.lastIndexOf("."); // 오리진 파일에서 .을 찾아주세요 좌석표.png
+		String extension = originName.substring(lastDot); // 점앞에 다자르기 //원래 이름에서(오리진네임) -> 확장자 구현.->
+
+		// 새로운 아름을 생성 : UUID
+		String memberPic = memberForm.getMemberId() + extension;
+		// 1.db에서 저장
 		Member member = new Member();
 		member.setMemberId(memberForm.getMemberId());
 		member.setMemberPw(memberForm.getMemberPw());
@@ -128,12 +161,13 @@ public class MemberService {
 		member.setMemberName(memberForm.getMemberName());
 		member.setMemberPhone(memberForm.getMemberPhone());
 		member.setMemberPic(memberPic);
-		System.out.println(member+"<---memberService.addMember:member");
+		System.out.println(member + "<---memberService.addMember:member");
 		int row = memberMapper.insertMember(member);
-		
-		//2.파일 저장 //윈도우경로 \ 슬러시 리눅스 / 역슬러시...스프링 안에서 자동으로 바꿔주긴하지만 
-		//String path = "D:\\git-cashbook\\cashbook\\src\\main\\resources\\static\\upload\\";
-		File file = new File(path+memberPic);
+
+		// 2.파일 저장 //윈도우경로 \ 슬러시 리눅스 / 역슬러시...스프링 안에서 자동으로 바꿔주긴하지만
+		// String path =
+		// "D:\\git-cashbook\\cashbook\\src\\main\\resources\\static\\upload\\";
+		File file = new File(path + memberPic);
 		try {
 			mf.transferTo(file);
 		} catch (Exception e) {
@@ -143,7 +177,7 @@ public class MemberService {
 			// 1. 예외처리를 해야만 문법적으로 이상없는 예외
 			// 2. 예외처리를 코드에서 구현하지 않아도 아무문제없는 예외 runtimeException
 		}
-	
+
 		return row;
 	}
 }

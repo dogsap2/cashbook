@@ -73,14 +73,14 @@ public class MemberController {
 	}
 
 	@PostMapping("/modifyMember")
-	public String modifyMember(HttpSession session, Member member) {
+	public String modifyMember(HttpSession session, MemberForm memberForm) {
 		// 로그인이 아닐때!
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/";
 		}
-		memberService.modifyMember(member);
-		System.out.println(member + "<====update member");
-		return "memberInfo";
+		memberService.modifyMember(memberForm);
+		System.out.println(memberForm + "<====update member");
+		return "redirect:/";
 	}
 
 	// 회원 탈퇴
@@ -202,40 +202,39 @@ public class MemberController {
 
 	@PostMapping("/addMember")
 	public String addMember(MemberForm memberForm, HttpSession session) {
-		////Command 객체, 도메인 객체 , 전부다 받아서 Member 타입으로 바꿔줌, (뷰)폼의  name이 vo안 이름과 같아야됨 
+		//// Command 객체, 도메인 객체 , 전부다 받아서 Member 타입으로 바꿔줌, (뷰)폼의 name이 vo안 이름과 같아야됨
 		// 로그인 중일때
 		if (session.getAttribute("loginMember") != null) {
 			return "redirect:/";
 		}
-		System.out.println(memberForm+"<-memberForm");
-		
-		//파일은 png,jpg,gif만 업로드 가능
-		if(memberForm.getMemberPic()!= null) {
-			if(!memberForm.getMemberPic().getContentType().equals("image/png")
-			&& !memberForm.getMemberPic().getContentType().equals("image/jpeg")
-			&& !memberForm.getMemberPic().getContentType().equals("image/gif")){
+		System.out.println(memberForm + "<-memberForm");
+
+		// 파일은 png,jpg,gif만 업로드 가능
+		if (memberForm.getMemberPic() != null) {
+			if (!memberForm.getMemberPic().getContentType().equals("image/png")
+					&& !memberForm.getMemberPic().getContentType().equals("image/jpeg")
+					&& !memberForm.getMemberPic().getContentType().equals("image/gif")) {
 				return "redirect:/addMember";
 			}
-		memberService.addMember(memberForm);
-		// 서비스 : 멤버폼->멤버+폴더 에 파일도 저장
+			memberService.addMember(memberForm);
+			// 서비스 : 멤버폼->멤버+폴더 에 파일도 저장
 		}
 		return "redirect:/index";
 	}
 }
-	/*
-	 * @PostMapping("/addMember") public String addMember(@RequestParam("memberId")
-	 * String memberId,
-	 * 
-	 * @RequestParam("memberId") String memberPw,
-	 * 
-	 * @RequestParam("memberId") String memberName,
-	 * 
-	 * @RequestParam("memberId") String memberAddr,
-	 * 
-	 * @RequestParam("memberId") String memberPhone,
-	 * 
-	 * @RequestParam("memberId") String memberEmail){ return "redirect:/"; }
-	 * 
-	 * 
-	 */
-
+/*
+ * @PostMapping("/addMember") public String addMember(@RequestParam("memberId")
+ * String memberId,
+ * 
+ * @RequestParam("memberId") String memberPw,
+ * 
+ * @RequestParam("memberId") String memberName,
+ * 
+ * @RequestParam("memberId") String memberAddr,
+ * 
+ * @RequestParam("memberId") String memberPhone,
+ * 
+ * @RequestParam("memberId") String memberEmail){ return "redirect:/"; }
+ * 
+ * 
+ */
