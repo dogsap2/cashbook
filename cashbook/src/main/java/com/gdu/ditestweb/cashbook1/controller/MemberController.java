@@ -78,6 +78,8 @@ public class MemberController {
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/";
 		}
+		//만약 받아온 memberPic값이 없다면 memberPic 현재 기본값을 가져와서 memberForm에 넣어야?.... 
+	
 		memberService.modifyMember(memberForm);
 		System.out.println(memberForm + "<====update member");
 		Member member = memberService.getMemberOne((LoginMember) (session.getAttribute("loginMember")));// 오브젝트 타입을
@@ -86,7 +88,8 @@ public class MemberController {
 		System.out.println(member);
 		model.addAttribute("member", member);
 		
-		return "memberInfo";
+		return "redirect:/memberInfo";
+		
 	}
 
 	// 회원 탈퇴

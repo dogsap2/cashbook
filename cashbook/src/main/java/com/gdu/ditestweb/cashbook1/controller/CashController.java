@@ -1,9 +1,7 @@
 package com.gdu.ditestweb.cashbook1.controller;
 
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -23,6 +21,15 @@ import com.gdu.ditestweb.cashbook1.vo.LoginMember;
 public class CashController {
 	@Autowired
 	private CashService cashService;
+	
+	
+	
+	@GetMapping("removeCash")
+	public String removeCash() {
+		return null;
+	}
+	
+	
 
 	@GetMapping("getCashListByDate")
 	public String getCashListByDate(HttpSession session, Model model,
