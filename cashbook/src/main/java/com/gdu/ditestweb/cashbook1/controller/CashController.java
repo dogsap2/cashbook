@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -33,19 +34,16 @@ public class CashController {
 			return "redirect:/";
 		}
 		String loginMemberId = ((LoginMember) session.getAttribute("loginMember")).getMemberId(); // 세션에서
-																								  // getMemberId();만빼옴
+																									// getMemberId();만빼옴
 		Cash cash = new Cash(); // 아이디와 데이터가 채워져야함
 		cash.setMemberId(loginMemberId);
 		cash.setCashDate(day.toString());
-
-		List<Cash> cashList = cashService.getCashListByDate(cash);
-		model.addAttribute("cashList", cashList);
+		
+		Map<String, Object> map = cashService.getCashListByDate(cash);
 		model.addAttribute("day", day);
-
-		for (Cash c : cashList) {
-			System.out.println(c);
-		}
-
+		model.addAttribute("cashKindSum",map.get("cashKindSum"));
+		model.addAttribute("cashList",map.get("cashList"));
+		
 		return "getCashListByDate";
 	}
 }

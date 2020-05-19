@@ -10,4 +10,6 @@ import com.gdu.ditestweb.cashbook1.vo.Cash;
 public interface CashMapper {
 	// 로그인 사용자의 오늘날짜 cash 목록
 	public List<Cash> selectCashListByDate(Cash cash);
+	// 금액 합계
+	public int selectCashKindSum(Cash cash);
 }
