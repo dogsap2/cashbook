@@ -73,14 +73,20 @@ public class MemberController {
 	}
 
 	@PostMapping("/modifyMember")
-	public String modifyMember(HttpSession session, MemberForm memberForm) {
+	public String modifyMember(HttpSession session, MemberForm memberForm,  Model model) {
 		// 로그인이 아닐때!
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/";
 		}
 		memberService.modifyMember(memberForm);
 		System.out.println(memberForm + "<====update member");
-		return "redirect:/";
+		Member member = memberService.getMemberOne((LoginMember) (session.getAttribute("loginMember")));// 오브젝트 타입을
+		// loginMember로
+		// 형변환.
+		System.out.println(member);
+		model.addAttribute("member", member);
+		
+		return "memberInfo";
 	}
 
 	// 회원 탈퇴

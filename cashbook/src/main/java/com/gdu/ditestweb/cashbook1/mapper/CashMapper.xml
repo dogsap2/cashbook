@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.gdu.ditestweb.cashbook1.mapper.CashMapper">
+	<select id ="selectCashListByDate"
+			parameterType="com.gdu.ditestweb.cashbook1.vo.Cash"
+			resultType="com.gdu.ditestweb.cashbook1.vo.Cash">
+		SELECT
+			cash_kind as cashKind,
+			category_name as categoryName,
+			cash_price as cashPrice,
+			cash_price as cashPlace,
+			cash_memo as cashMemo
+		from cash
+		where member_id = #{memberId}
+		AND cash_date = #{cashDate}
+		ORDER BY cash_no ASC
+	</select>
+
+
+
+
+
+
+
+</mapper>
