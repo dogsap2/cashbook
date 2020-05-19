@@ -8,10 +8,11 @@
 			parameterType="com.gdu.ditestweb.cashbook1.vo.Cash"
 			resultType="com.gdu.ditestweb.cashbook1.vo.Cash">
 		SELECT
+			cash_no as cashNo,
 			cash_kind as cashKind,
 			category_name as categoryName,
 			cash_price as cashPrice,
-			cash_price as cashPlace,
+			cash_place as cashPlace,
 			cash_memo as cashMemo
 		from cash
 		where member_id = #{memberId}
