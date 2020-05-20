@@ -55,7 +55,6 @@
 						th:text="${'+'+ cash.cashPrice}"></td>
 					<td th:unless="${cash.cashKind} == '수입'"></td>
 					
-					
 					<!-- 삼항연산자: 조건? 참값: 거짓값 -->
 					<td th:text="${cash.cashKind} == '지출'? ${'-'+ cash.cashPrice} : ''"></td>
 					<td th:text="${cash.cashPlace}"></td>
