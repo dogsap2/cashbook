@@ -1,13 +1,13 @@
 package com.gdu.ditestweb.cashbook1.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-
 import com.gdu.ditestweb.cashbook1.vo.LoginMember;
 import com.gdu.ditestweb.cashbook1.vo.Member;
 
 @Mapper //@Mapper는 Component를 상속받았대요 
 public interface MemberMapper {
 	
+	public int updatenopicMember(Member member);
 	//d아이디를 입력하면 pic을 뱉는
 	public String selectMemberPic(String memberId);
 	//비밀번호 찾기

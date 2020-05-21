@@ -81,7 +81,8 @@ public class CashController {
 
 		return "getCashListByMonth";
 	}
-
+	
+	//월별
 	@GetMapping("getCashListByDate")
 	public String getCashListByDate(HttpSession session, Model model,
 			@RequestParam(value = "day", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate day) {

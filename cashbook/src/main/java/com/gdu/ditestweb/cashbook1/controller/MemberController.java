@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gdu.ditestweb.cashbook1.service.MemberService;
 import com.gdu.ditestweb.cashbook1.vo.LoginMember;
@@ -73,23 +74,46 @@ public class MemberController {
 	}
 
 	@PostMapping("/modifyMember")
-	public String modifyMember(HttpSession session, MemberForm memberForm,  Model model) {
+	public String modifyMember(HttpSession session, MemberForm memberForm, Model model) {
 		// 로그인이 아닐때!
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/";
 		}
-		//만약 받아온 memberPic값이 없다면 memberPic 현재 기본값을 가져와서 memberForm에 넣어야?.... 
-	
+		// 받아온 memberForm 디버깅
+		System.out.println(memberForm + "<--------------------memberForm");
+		// 받아온 사진을 MultipartFile형인 mf에 저장
+		MultipartFile mf = memberForm.getMemberPic();
+		// 현재 MultipartFile에 들어가있는 사진 이름을 string형으로 반환하여 originName에 넣음.
+		String originName = mf.getOriginalFilename();
+		// 디버깅
+		System.out.println(originName + "<---------------originName");
+
+		// 만약 받아온 사진이 null이 아니고 originName이 공백이 아니면 파일은 png,jpg,gif만 사용가능해야한다. 이 조건에
+		// 부합하지 않으면 서버 재요청
+		if (memberForm.getMemberPic() != null && !originName.equals("")) {
+			if (!memberForm.getMemberPic().getContentType().equals("image/png")
+					&& !memberForm.getMemberPic().getContentType().equals("image/jpg")
+					&& !memberForm.getMemberPic().getContentType().equals("image/gif")) {
+				return "redirect:/modifyMember?imgMsg=n";
+			}
+		}
+		// 만약 받아온 사진이 없으면? 기본사진을 보여줘야한다.
+		if (memberForm.getMemberPic().getOriginalFilename().equals("")){
+			memberService.modifyNoPicMember(memberForm);
+			return "redirect:/memberInfo";
+		}
+
 		memberService.modifyMember(memberForm);
 		System.out.println(memberForm + "<====update member");
 		Member member = memberService.getMemberOne((LoginMember) (session.getAttribute("loginMember")));// 오브젝트 타입을
 		// loginMember로
 		// 형변환.
+
 		System.out.println(member);
 		model.addAttribute("member", member);
-		
+
 		return "redirect:/memberInfo";
-		
+
 	}
 
 	// 회원 탈퇴

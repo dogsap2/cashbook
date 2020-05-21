@@ -4,20 +4,26 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
 <!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style th:include="/include/menu::side"></style>
 </head>
 <body>
-	<h1>home</h1>
-	<div th:include="/include/menu::sidemenu"></div> <!--타임리프 방법! 이자리에 sidemenu를 호출하겠습니다. 태그단위로 인크루드 가능! -->
+	<h1 class="main">home</h1>
+	<div th:include="/include/menu::sidemenu" class="sidenav"></div>
+	<!--타임리프 방법! 이자리에 sidemenu를 호출하겠습니다. 태그단위로 인크루드 가능! -->
 	<!-- <jsp:include page=> 는 jsp방식! 페이지 단위로 인크루드 가능! -->
 </body>
 </html>

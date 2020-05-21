@@ -55,6 +55,10 @@ public class MemberService {
 	public String getMemberIdByMember(Member member) {
 		return memberMapper.selectMemberIdByMember(member);
 	}
+	
+	public String selectMemberPic(LoginMember loginMember) {
+		return memberMapper.selectMemberPic(loginMember.getMemberId());
+	}
 
 	// 삭제
 	public int removeMember(LoginMember loginMember) {
@@ -78,6 +82,22 @@ public class MemberService {
 			row1 = memberidMapper.insertMemberid(memberid);
 		}
 		return row1;
+	}
+	
+	
+	//수정(파일x)
+	public int modifyNoPicMember(MemberForm memberForm) {
+		Member member = new Member();
+		member.setMemberId(memberForm.getMemberId());
+		member.setMemberPw(memberForm.getMemberPw());
+		member.setMemberAddr(memberForm.getMemberAddr());
+		member.setMemberEmail(memberForm.getMemberEmail());
+		member.setMemberName(memberForm.getMemberName());
+		member.setMemberPhone(memberForm.getMemberPhone());
+		System.out.println(member + "<---memberService.addMember:member");
+		
+		int row = memberMapper.updatenopicMember(member);
+		return row;
 	}
 
 	// 수정
