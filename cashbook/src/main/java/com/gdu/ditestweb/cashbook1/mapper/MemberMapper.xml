@@ -44,7 +44,7 @@
 		member_name = #{memberName},
 		member_addr = #{memberAddr},
 		member_phone = #{memberPhone},
-		member_email = #{memberEmail},
+		member_email = #{memberEmail}
 		where member_id = #{memberId}
 	</update>
 	<!-- 회원정보 수정(사진도 같이 변경) -->
