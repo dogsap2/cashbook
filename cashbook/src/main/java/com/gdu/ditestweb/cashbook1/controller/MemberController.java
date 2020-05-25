@@ -247,12 +247,12 @@ public class MemberController {
 			if (!memberForm.getMemberPic().getContentType().equals("image/png")
 					&& !memberForm.getMemberPic().getContentType().equals("image/jpeg")
 					&& !memberForm.getMemberPic().getContentType().equals("image/gif")) {
-				return "redirect:/addMember";
+				return "redirect:/addMember?imgMsg=n";
 			}
 			memberService.addMember(memberForm);
 			// 서비스 : 멤버폼->멤버+폴더 에 파일도 저장
 		}
-		return "redirect:/index";
+		return "redirect:/";
 	}
 }
 /*

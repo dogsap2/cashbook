@@ -18,18 +18,20 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style th:include="/include/menu::side"></style>
 </head>
 <body>
-	<div class="container">
-		<h1>memberInfo</h1>
-		<!-- 메뉴 -->
-		<div th:include="/include/menu::sidemenu" class="sidenav"></div>
-		<div class="container">
-			<div>
-				<a th:href="@{/removeMember}">회원탈퇴</a> <a th:href="@{/modifyMember}">회원정보수정</a>
-			</div>
-
-			<!-- 멤버 정보 -->
+	<div class="row">
+		<div class="col-sm-2">
+			<h1>memberInfo</h1>
+			<!-- 메뉴 -->
+			<div th:include="/include/menu::sidemenu" id="aside"></div>
+		</div>
+		<!-- 멤버 정보 -->
+		<div class="col-sm-10">
+		<div>
+			<a th:href="@{/removeMember}">회원탈퇴</a> <a th:href="@{/modifyMember}">회원정보수정</a>
+		</div>
 			<table class="table">
 				<tr>
 					<td th:text="${member.memberPic}"></td>

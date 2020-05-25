@@ -31,6 +31,7 @@ public class MemberService {
 	@Value("D:\\git-cashbook\\cashbook\\src\\main\\resources\\static\\upload\\")
 	private String path;
 
+	//비밀번호 찾기
 	public int getMemberPw(Member member) {
 		// 임시 pw추가
 		UUID uuid = UUID.randomUUID();
@@ -51,16 +52,14 @@ public class MemberService {
 		}
 		return row;
 	}
-
+	
+	//아이디 잃어버렸을때
 	public String getMemberIdByMember(Member member) {
 		return memberMapper.selectMemberIdByMember(member);
 	}
 	
-	public String selectMemberPic(LoginMember loginMember) {
-		return memberMapper.selectMemberPic(loginMember.getMemberId());
-	}
 
-	// 삭제
+	// 회원 탈퇴
 	public int removeMember(LoginMember loginMember) {
 
 		// 1.멤버 이미지 파일 삭제
@@ -135,36 +134,29 @@ public class MemberService {
 		}
 		return row;
 	}
-
-	// public int removeMember(LoginMember loginMember) {
-	// return memberMapper.deleteMemberOne(loginMember);
-	// }
-
+	
+	//로그인한 회원의 상세정보
 	public Member getMemberOne(LoginMember loginMember) {
 		return memberMapper.selectMemberOne(loginMember);
 	}
 
+	//중복확인
 	public String checkMemberId(String memberIdCheck) {
 		return memberMapper.selectMemberId(memberIdCheck); // 둘 중에 하나가 리턴됨 결과물 있으면 멤버아이디, 없으면 null
 	}
-
+	
+	//로그인
 	public LoginMember login(LoginMember loginMember) {
 		return memberMapper.selectLoginMember(loginMember);
 	}
 
-	// 추가
+	// 회원가입
 	// 파일을 넘기기위해서느는 enctype 설정, 그리고 파일이 넘어왔기떄문에 파일을 받아야되기때문에 컨트롤러에서 멀티파트파일을 받아야해서
 	// vo에 맴버폼 만들어서 넘김
 	public int addMember(MemberForm memberForm) {
 		MultipartFile mf = memberForm.getMemberPic();
 		// 확장자 필요
 		String originName = mf.getOriginalFilename();
-
-//		if(mf.getContentType().equals("image.png")|| mf.getContentType().equals("image/jpeg")) {
-//			//업로드
-//		}else {
-//			//업로드실패
-//		}
 		System.out.println(originName);
 
 		int lastDot = originName.lastIndexOf("."); // 오리진 파일에서 .을 찾아주세요 좌석표.png
@@ -185,9 +177,8 @@ public class MemberService {
 		int row = memberMapper.insertMember(member);
 
 		// 2.파일 저장 //윈도우경로 \ 슬러시 리눅스 / 역슬러시...스프링 안에서 자동으로 바꿔주긴하지만
-		// String path =
-		// "D:\\git-cashbook\\cashbook\\src\\main\\resources\\static\\upload\\";
-		File file = new File(path + memberPic);
+		String path ="C:\\Users\\tigersvadeva\\git\\cashbook\\cashbook\\src\\main\\resources\\static\\upload\\";
+		File file = new File(path + memberPic);//새로운 파일 생성
 		try {
 			mf.transferTo(file);
 		} catch (Exception e) {
