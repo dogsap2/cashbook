@@ -1,29 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
+<meta charset="EUC-KR">
 <title>Insert title here</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
 <!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <!-- Popper JS -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<style th:include="/include/menu::side"></style>
 </head>
 <body>
-	<h1 class="main">home</h1>
-	<div th:include="/include/menu::sidemenu" id="aside"></div>
-	<!--íƒ€ìž„ë¦¬í”„ ë°©ë²•! ì´ìžë¦¬ì— sidemenuë¥¼ í˜¸ì¶œí•˜ê² ìŠµë‹ˆë‹¤. íƒœê·¸ë‹¨ìœ„ë¡œ ì¸í¬ë£¨ë“œ ê°€ëŠ¥! -->
-	<!-- <jsp:include page=> ëŠ” jspë°©ì‹! íŽ˜ì´ì§€ ë‹¨ìœ„ë¡œ ì¸í¬ë£¨ë“œ ê°€ëŠ¥! -->
+	<h1>2020³â °¡°èºÎ</h1>
+	<div class="container">
+		<form method="post" action="/insertCash">
+			<div>
+				<!-- Ä«Å×°í¸® °¡Á®¿Í¾ßÇÔ -->
+				Ä«Å×°í¸®:
+			</div>
+			<div>
+				¼öÀÔ/ÁöÃâ:
+				<!-- ¼öÀÔ ÁöÃâ °í¸¦ ¼ö ÀÖ°Ô... -->
+			</div>
+			<div>±Ý¾×:</div>
+			<div>
+				Àå¼Ò: <input type="text" id="cashPlace" name="cashPlace">
+			</div>
+			<div>
+				¸Þ¸ð: <input type="text" id="cashMemo" name="cashMemo">
+			</div>
+			<div>
+			<!-- Á¦ÀÌÄõ¸® »ç¿ëÇØ¼­ º¸³»¾ßÇÔ...ÀÏ´Ü submit -->
+				<button type="submit">ÀÔ·Â</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

@@ -51,8 +51,9 @@ div.gd-title {
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<div class="container">
 		<h1>월별 가계부 관리</h1>
-		<div class="container-fluid">
+		<!-- <div th:include="/include/menu::sidemenu"></div>  -->
 		<h3 th:text="${month+'월'}"></h3>
 		<div>
 			<a th:href="@{/getCashListByMonth(day=${day.plusMonths(-1)})}">이전</a> 
@@ -78,6 +79,7 @@ div.gd-title {
 				</span>
 			</div>
 		</div>
+
 	</div>
 </body>
 </html>

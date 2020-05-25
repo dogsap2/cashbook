@@ -8,20 +8,20 @@ body {
   font-family: "Lato", sans-serif;
 }
 
-#aside {
+.sidenav {
      width: 200px;
-     height: 3000px;
+     height: 100%;
      position: fixed;
      background: #5BA8D8;
      overflow: hidden;
      float: left;
- }
+}
 
 </style>
 </head>
 <body>
 	<!-- fragment1 <!-- /include/menu::sidemenu --> -->
-	<div id="aside" th:fragment="sidemenu">
+	<div th:fragment="sidemenu">
 		<!-- ${}앞에 세션안붙이면 모델안에 있는 줄 아니까 세션.붙이기 --> 
 		<div><span th:text="${session.loginMember.memberId}"></span>님</div>
 		<ul>

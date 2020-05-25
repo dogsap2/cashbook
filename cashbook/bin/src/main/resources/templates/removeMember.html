@@ -18,12 +18,34 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<style th:include="/include/menu::side"></style>
+<script>
+let helperInit = function(){
+	$('#pwHelper').text("");
+}
+
+$(document).ready(function(){
+	$('#btn').click(function(){
+		if($('#memberPw').val().length<4){
+			helperInit();
+			$('#pwHelper').text("pw 4자이상");
+			$('#memberPw').focus();
+		}else{
+			$('#myform').submit();
+		}
+	});
+});
+</script>
 </head>
 <body>
-	<h1 class="main">home</h1>
-	<div th:include="/include/menu::sidemenu" id="aside"></div>
-	<!--타임리프 방법! 이자리에 sidemenu를 호출하겠습니다. 태그단위로 인크루드 가능! -->
-	<!-- <jsp:include page=> 는 jsp방식! 페이지 단위로 인크루드 가능! -->
+<div th:include="/include/menu::sidemenu"></div> 
+	<form method="post" action="/removeMember" id="myform">
+		<div>
+			비밀번호 :<input type="password" name="memberPw" id="memberPw"> 
+			<span id="pwHelper"></span>
+		</div>
+		<div>
+			<button type="button" id="btn">확인</button>
+		</div>
+	</form>
 </body>
 </html>

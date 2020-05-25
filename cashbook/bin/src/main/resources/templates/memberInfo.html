@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>memberInfo</h1>
+		<!-- 메뉴 -->
+		<div th:include="/include/menu::sidemenu" class="sidenav"></div>
+		<div class="container">
+			<div>
+				<a th:href="@{/removeMember}">회원탈퇴</a> <a th:href="@{/modifyMember}">회원정보수정</a>
+			</div>
+
+			<!-- 멤버 정보 -->
+			<table class="table">
+				<tr>
+					<td th:text="${member.memberPic}"></td>
+					<td>
+						<!-- 디폴트 말고 내 사진을 업로드해쓰면 내 사진이 보이고싶다. --> <img
+						th:src="@{${'/upload/'+member.memberPic}}" width="400"
+						height="500">
+					</td>
+				</tr>
+				<tr>
+					<td>아이디</td>
+					<td th:text="${member.memberId}"></td>
+				</tr>
+				<tr>
+					<td>이름</td>
+					<td th:text="${member.memberName}"></td>
+				</tr>
+				<tr>
+					<td>주소</td>
+					<td th:text="${member.memberAddr}"></td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td th:text="${member.memberPhone}"></td>
+				</tr>
+				<tr>
+					<td>이메일</td>
+					<td th:text="${member.memberEmail}"></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
