@@ -1,6 +1,7 @@
 package com.gdu.ditestweb.cashbook1.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.ditestweb.cashbook1.service.CashService;
 import com.gdu.ditestweb.cashbook1.vo.Cash;
+import com.gdu.ditestweb.cashbook1.vo.Category;
 import com.gdu.ditestweb.cashbook1.vo.DayAndPrice;
 import com.gdu.ditestweb.cashbook1.vo.LoginMember;
 
@@ -29,12 +31,20 @@ public class CashController {
 		return null;
 	}
 
+	// 가계부 추가
 	@GetMapping("insertCash")
-	public String insertCash(HttpSession session) {
+	public String insertCash(HttpSession session, Model model,
+			@RequestParam(value = "day", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate day) {
+
 		// 로그인 중일때
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/";
 		}
+
+		List<Category> list = cashService.selectCategoryList();
+		model.addAttribute("list", list);
+		model.addAttribute("day", day);
+		System.out.println(list + "<-----list");
 
 		return "insertCash";
 	}

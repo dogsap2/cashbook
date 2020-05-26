@@ -177,7 +177,7 @@ public class MemberService {
 		int row = memberMapper.insertMember(member);
 
 		// 2.파일 저장 //윈도우경로 \ 슬러시 리눅스 / 역슬러시...스프링 안에서 자동으로 바꿔주긴하지만
-		String path ="C:\\Users\\tigersvadeva\\git\\cashbook\\cashbook\\src\\main\\resources\\static\\upload\\";
+		String path ="C:\\Users\\gd\\git\\cashbook\\cashbook\\src\\main\\resources\\static\\upload\\";
 		File file = new File(path + memberPic);//새로운 파일 생성
 		try {
 			mf.transferTo(file);
