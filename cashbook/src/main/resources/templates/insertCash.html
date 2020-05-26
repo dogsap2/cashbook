@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style th:include="/include/menu::side"></style>
+</head>
+<body>
+	<div class="row">
+		<div class="col-sm-2">
+			<h1>2020년 가계부</h1>
+			<!-- 메뉴 -->
+			<div th:include="/include/menu::sidemenu" id="aside"></div>
+		</div>
+		<div class="col-sm-10">
+			<form method="post" action="/insertCash">
+				<h3>수입/지출 이력</h3>
+				<table border="1">
+					<tr>
+						<!-- 날짜 불러오기 해 -->
+						<td>날짜:<input type="text" name="cashDate" th:value="${day}"></td>
+					</tr>
+					<tr>
+						<td>
+							<!-- 카테고리 가져와야함 --> 카테고리: <select name="categoryName" id="categoryName">
+								<option value="">카테고리목록</option>
+								<!-- 컨트롤러에서 모델에 넣은 리스트를 cate이라고 부르겠다. -->
+								<option th:each="cate : ${list}" th:text="${cate.categoryName}"
+									th:value="${cate.categoryName}"></option>
+						</select>
+						</td>
+					</tr>
+					<tr>
+						<td>수입/지출: <select name="cashKind">
+								<option value="수입">수입</option>
+								<option value="지출">지출</option>
+						</select> <!-- 수입 지출 고를 수 있게... -->
+						</td>
+					</tr>
+					<tr>
+						<td>금액: <input type="text" id="cashPlace" name="cashPrice">
+						</td>
+					</tr>
+					<tr>
+						<td>장소: <input type="text" id="cashPlace" name="cashPlace">
+						</td>
+					</tr>
+					<tr>
+						<td>메모: <input type="text" id="cashMemo" name="cashMemo">
+						</td>
+					</tr>
+				</table>
+				<div>
+					<!-- 제이쿼리 사용해서 보내야함...일단 submit -->
+					<button type="submit">입력</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
