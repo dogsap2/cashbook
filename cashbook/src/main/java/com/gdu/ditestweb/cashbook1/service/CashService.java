@@ -19,12 +19,24 @@ import com.gdu.ditestweb.cashbook1.vo.DayAndPrice;
 public class CashService {
 	@Autowired private CashMapper cashMapper;
 	
+	//캐쉬 넘버에 해당하는 리스트 뽑아오기
+	public List<Cash> selectCashListOne(Cash cashNo){
+		List<Cash> list = cashMapper.selectCashListByOne(cashNo);
+		System.out.println(list+"<------list");
+		return list;
+	}
+	
+	
 	//캐쉬(가계부) 추가하기
 	public int insertCash(Map<String, Object> map) {
 		int row = cashMapper.insertCategoryList(map);
 		return row;
 	}
 	
+	//캐쉬(가계부) 삭제하기
+	public int removeCash(Cash cashNo) {
+		return cashMapper.deleteCash(cashNo);
+	}
 	
 	
 	//카테고리 목록만 뽑아내기

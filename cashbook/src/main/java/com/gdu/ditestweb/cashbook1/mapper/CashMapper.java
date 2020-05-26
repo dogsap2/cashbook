@@ -11,6 +11,10 @@ import com.gdu.ditestweb.cashbook1.vo.DayAndPrice;
 
 @Mapper
 public interface CashMapper {
+	//캐쉬넘버에 해당하는 캐시리스트 뽑아오기
+	public List<Cash> selectCashListByOne(Cash cashNo);
+	//캐쉬 삭제하기
+	public int deleteCash(Cash cashNo);
 	//캐쉬 추가하기
 	public int insertCategoryList(Map<String, Object> map);
 	//카테고리 네임 불러오기

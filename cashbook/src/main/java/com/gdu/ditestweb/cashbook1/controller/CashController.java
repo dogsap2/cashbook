@@ -1,7 +1,6 @@
 package com.gdu.ditestweb.cashbook1.controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -28,10 +27,29 @@ public class CashController {
 	@Autowired
 	private CashService cashService;
 
-	@GetMapping("removeCash")
-	public String removeCash() {
-		return null;
+	//캐쉬 수정
+	@GetMapping("modifyCash")
+	public String modifyCash(HttpSession session,Model model,Cash cashNo) {
+		// 로그인 아니면 빽해
+		if (session.getAttribute("loginMember") == null) {
+		return "redirect:/";
+		}
+		//현재 cashNo정보 가져오고
+		List <Cash>list = cashService.selectCashListOne(cashNo);
+		model.addAttribute("list", list);
+		//모델에 리스트 담아서 넘기고
+		//수정폼 만들고.
+		return "modifyCash";
 	}
+	
+	
+	//캐쉬 삭제
+	@GetMapping("removeCash")
+	public String removeCash(HttpSession session,Cash cashNo){
+		cashService.removeCash(cashNo);
+		return "redirect:/getCashListByDate";
+	}
+	
 
 	// 가계부 추가(수입 지출 내용 추가 폼으로...)
 	@GetMapping("insertCash")

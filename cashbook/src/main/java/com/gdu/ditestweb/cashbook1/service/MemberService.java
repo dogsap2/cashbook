@@ -30,7 +30,7 @@ public class MemberService {
 	private JavaMailSender javaMailSender; // @Component와 아이F들....
 	@Value("D:\\git-cashbook\\cashbook\\src\\main\\resources\\static\\upload\\")
 	private String path;
-
+	
 	//비밀번호 찾기
 	public int getMemberPw(Member member) {
 		// 임시 pw추가
