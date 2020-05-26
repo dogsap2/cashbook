@@ -11,7 +11,8 @@ import com.gdu.ditestweb.cashbook1.vo.DayAndPrice;
 
 @Mapper
 public interface CashMapper {
-	
+	//캐쉬 추가하기
+	public int insertCategoryList(Map<String, Object> map);
 	//카테고리 네임 불러오기
 	public List<Category> selectCategoryList();
 	//하나는 년도고 하나는 달

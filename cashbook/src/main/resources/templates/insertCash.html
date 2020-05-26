@@ -34,7 +34,7 @@
 					</tr>
 					<tr>
 						<td>
-							<!-- 카테고리 가져와야함 --> 카테고리: <select name="category" id="category">
+							<!-- 카테고리 가져와야함 --> 카테고리: <select name="categoryName" id="categoryName">
 								<option value="">카테고리목록</option>
 								<!-- 컨트롤러에서 모델에 넣은 리스트를 cate이라고 부르겠다. -->
 								<option th:each="cate : ${list}" th:text="${cate.categoryName}"
@@ -50,7 +50,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>금액: <input type="text" id="cashPlace" name="cashPlace">
+						<td>금액: <input type="text" id="cashPlace" name="cashPrice">
 						</td>
 					</tr>
 					<tr>

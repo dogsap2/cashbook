@@ -19,6 +19,14 @@ import com.gdu.ditestweb.cashbook1.vo.DayAndPrice;
 public class CashService {
 	@Autowired private CashMapper cashMapper;
 	
+	//캐쉬(가계부) 추가하기
+	public int insertCash(Map<String, Object> map) {
+		int row = cashMapper.insertCategoryList(map);
+		return row;
+	}
+	
+	
+	
 	//카테고리 목록만 뽑아내기
 	public List<Category> selectCategoryList(){
 		List<Category> list = new ArrayList<Category>();

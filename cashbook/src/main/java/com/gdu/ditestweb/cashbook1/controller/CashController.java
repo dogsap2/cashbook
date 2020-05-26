@@ -3,6 +3,7 @@ package com.gdu.ditestweb.cashbook1.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.ditestweb.cashbook1.service.CashService;
@@ -31,7 +33,7 @@ public class CashController {
 		return null;
 	}
 
-	// 가계부 추가
+	// 가계부 추가(수입 지출 내용 추가 폼으로...)
 	@GetMapping("insertCash")
 	public String insertCash(HttpSession session, Model model,
 			@RequestParam(value = "day", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate day) {
@@ -47,6 +49,34 @@ public class CashController {
 		System.out.println(list + "<-----list");
 
 		return "insertCash";
+	}
+
+	//  가계부 추가(수입 지출 내용 추가 폼 액션...)
+	@PostMapping("insertCash")
+	public String insertCash(HttpSession session, Cash cash,
+			@RequestParam(value = "day", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate day) {
+		// 로그인이 아닐때.
+		if (session.getAttribute("loginMember") == null) {
+			return "redirect:/";
+		}
+		
+		System.out.println(cash+"<-----cash");
+		//아이디 값 세션에서 불러오기.
+		String memberId = ((LoginMember)(session.getAttribute("loginMember"))).getMemberId();
+		//해쉬맵이용해서 값 넣기(해쉬맵으로도 값 넘겨보고싶어서 한 번 도전해봤습니다.)
+		//정석: memeberId는 세션에서 꺼내 온 다음 cash.setMemberId(memberId); 하고 나머지는 cash 받은 그대로 cashService에 넘기면 됨.
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("memberId", memberId);
+		map.put("cashDate", cash.getCashDate());
+		map.put("cashKind", cash.getCashKind());
+		map.put("categoryName", cash.getCategoryName());
+		map.put("cashPrice", cash.getCashPrice());
+		map.put("cashPlace", cash.getCashPlace());
+		map.put("cashMemo", cash.getCashMemo());
+		
+		cashService.insertCash(map);
+		
+		return "redirect:/getCashListByDate";
 	}
 
 	// 달별로

@@ -3,6 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.ditestweb.cashbook1.mapper.CashMapper">	
+		<insert id="insertCategoryList" parameterType="java.util.Map">
+		insert into cash(
+		member_id,cash_date,cash_kind,category_name,cash_price,cash_place,cash_memo
+		)value(
+		#{memberId},
+		#{cashDate},
+		#{cashKind},
+		#{categoryName},
+		#{cashPrice},
+		#{cashPlace},
+		#{cashMemo}
+		)
+		</insert>
+		
 		<select id="selectCategoryList"
 			resultType="com.gdu.ditestweb.cashbook1.vo.Category">
 			SELECT CATEGORY_NAME as categoryName FROM CATEGORY
