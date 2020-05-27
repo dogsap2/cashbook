@@ -55,39 +55,41 @@ div.gd-title {
 <body>
 	<div class="row">
 		<div class="col-sm-2">
-			<h3>월별 가계부 관리</h3>
 			<div th:include="/include/menu::sidemenu" id="aside"></div>
-			</div>	
-			<div class="col-sm-10">
-				<h3 th:text="${month+'월'}"></h3>
-				<div>
-					<a th:href="@{/getCashListByMonth(day=${day.plusMonths(-1)})}">이전</a>
-					<a th:href="@{/getCashListByMonth(day=${day.plusMonths(1)})}">다음</a>
-				</div>
-				<!-- cDay.get(Calendar.MONTH)+1 -->
-				<div class="gd-left gd-clear gd-title">일</div>
-				<div class="gd-left  gd-title">월</div>
-				<div class="gd-left  gd-title">화</div>
-				<div class="gd-left  gd-title">수</div>
-				<div class="gd-left  gd-title">목</div>
-				<div class="gd-left  gd-title">금</div>
-				<div class="gd-left  gd-title">토</div>
-				<!--  5월달 lastDay==31 -->
-				<!-- 삼항연산자 : 조건 ? 참값 : 거짓값  -->
-				<!--index.index+':'  인덱스는 줄바꾸기위해..-->
-				<div
-					th:each="i,index: ${#numbers.sequence(1,lastDay+firstDayOfWeek-1)}"
-					th:class="${index.index%7}==0 ? 'gd-clear gd-left': 'gd-left'">
-					<div th:text="${i-(firstDayOfWeek-1)}>0?${i-(firstDayOfWeek-1)}:''"></div>
-					<div th:each="dp : ${dayAndPriceList}">
-						<!-- 수입지출합 -->
-						<span th:if="${i-(firstDayOfWeek-1)}==${dp.day}"> <span
-							th:class="${dp.price}>=0? 'gd-blue':'gd-red'"
-							th:text="${dp.price}"></span>
-						</span>
-					</div>
+		</div>
+		<div class="col-sm-10">
+			<h3>월별 가계부 관리3</h3>
+			<h3 th:text="${month+'월'}">가계부</h3>
+			<div>
+				<a th:href="@{/getCashListByMonth(day=${day.plusMonths(-1)})}">이전</a>
+				<a th:href="@{/getCashListByMonth(day=${day.plusMonths(1)})}">다음</a>
+			</div>
+			<!-- cDay.get(Calendar.MONTH)+1 -->
+			<div class="gd-left gd-clear gd-title">일</div>
+			<div class="gd-left  gd-title">월</div>
+			<div class="gd-left  gd-title">화</div>
+			<div class="gd-left  gd-title">수</div>
+			<div class="gd-left  gd-title">목</div>
+			<div class="gd-left  gd-title">금</div>
+			<div class="gd-left  gd-title">토</div>
+			<!--  5월달 lastDay==31 -->
+			<!-- 삼항연산자 : 조건 ? 참값 : 거짓값  -->
+			<!--index.index+':'  인덱스는 줄바꾸기위해..-->
+			<div
+				th:each="i,index: ${#numbers.sequence(1,lastDay+firstDayOfWeek-1)}"
+				th:class="${index.index%7}==0 ? 'gd-clear gd-left': 'gd-left'">
+				
+				<!-- 값이 0보다 크면 출력 그게 아니면 공백('')으로 표현  -->
+				<div th:text="${i-(firstDayOfWeek-1)}>0?${i-(firstDayOfWeek-1)}:''"></div>
+				<div th:each="dp : ${dayAndPriceList}">
+					<!-- 수입지출합 -->
+					<span th:if="${i-(firstDayOfWeek-1)}==${dp.day}"> <span
+						th:class="${dp.price}>=0? 'gd-blue':'gd-red'"
+						th:text="${dp.price}"></span>
+					</span>
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 </html>

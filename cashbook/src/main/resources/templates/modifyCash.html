@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 <title>Insert title here</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
@@ -20,12 +20,65 @@
 <body>
 	<div class="row">
 		<div class="col-sm-2">
-			<h3>����� ����</h3>
+			<h1>가계부 수정</h1>
 			<div th:include="/include/menu::sidemenu" id="aside"></div>
 		</div>
 		<div class="col-sm-10">
-		
-		
+			<form method="post" action="/modifyCash">
+				<h3>입력 수정</h3>
+				<table border="1">
+					<tr>
+						<td><input type="hidden" th:value="${cash.cashNo}"
+							name="cashNo">
+						</td>
+					</tr>	
+					<tr>
+						<td>날짜:<input type="date" th:value="${cash.cashDate}"
+							name="cashDate">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<!-- 카테고리 가져와야함 --> 카테고리: <select name="categoryName"
+							id="categoryName">
+
+								<!-- 컨트롤러에서 모델에 넣은 리스트를 cate이라고 부르겠다. 조건걸어서 셀렉트-->
+								<option th:each="cate : ${cate}" th:text="${cate.categoryName}"
+									th:value="${cate.categoryName}"
+									th:selected="${cash.categoryName eq cate.categoryName}"></option>
+						</select>
+						</td>
+					</tr>
+					<tr>
+						<td>수입/지출: <select name="cashKind">
+								<option th:value="${cash.cashKind}"
+									th:text="'---'+${cash.cashKind}+'---'"></option>
+								<option value="수입">수입</option>
+								<option value="지출">지출</option>
+						</select> <!-- 수입 지출 고를 수 있게... -->
+						</td>
+					</tr>
+					<tr>
+						<td>금액: <input type="text" id="cashPlace"
+							th:value="${cash.cashPrice}" name="cashPrice">
+						</td>
+					</tr>
+					<tr>
+						<td>장소: <input type="text" id="cashPlace"
+							th:value="${cash.cashPlace}" name="cashPlace">
+						</td>
+					</tr>
+					<tr>
+						<td>메모: <input type="text" id="cashMemo"
+							th:value="${cash.cashMemo}" name="cashMemo">
+						</td>
+					</tr>
+				</table>
+				<div>
+					<!-- 제이쿼리 사용해서 보내야함...일단 submit -->
+					<button type="submit">입력</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </body>

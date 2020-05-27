@@ -21,12 +21,12 @@
 	<style th:include="/include/menu::side"></style>
 </head>
 <body>
-	<h1>2020년 가계부</h1>
 	<div class="row">
 		<div class="col-sm-2">
 			<div th:include="/include/menu::sidemenu" id="aside"></div>
 		</div>
 		<div class="col-sm-10">
+			<h3>일별 가계부 관리</h3>
 			<div>
 				<!-- 현재 날짜 담아온 거 가져옴-->
 				<h3 th:text="${day}"></h3>
@@ -71,7 +71,7 @@
 			</table>
 			<div>
 				(수입+지출)합계 : <span
-					th:text="${#numbers.formatInteger(cashKindSum,0,'COMMA')}"></span>
+					th:text="${#numbers.formatInteger(cashKindSum,0,'COMMA')}">원</span>
 			</div>
 			<div>
 			<a th:href="@{/insertCash(day=${day})}" class="btn btn-primary">추가하기</a>

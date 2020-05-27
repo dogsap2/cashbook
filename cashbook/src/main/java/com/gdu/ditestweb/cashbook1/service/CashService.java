@@ -19,11 +19,14 @@ import com.gdu.ditestweb.cashbook1.vo.DayAndPrice;
 public class CashService {
 	@Autowired private CashMapper cashMapper;
 	
+	//캐쉬 수정
+	public int modifyCash(Cash cash) {
+		return cashMapper.updateCash(cash);
+	}
+	
 	//캐쉬 넘버에 해당하는 리스트 뽑아오기
-	public List<Cash> selectCashListOne(Cash cashNo){
-		List<Cash> list = cashMapper.selectCashListByOne(cashNo);
-		System.out.println(list+"<------list");
-		return list;
+	public Cash selectCashListOne(int cashNo){		
+		return cashMapper.selectCashListByOne(cashNo);
 	}
 	
 	

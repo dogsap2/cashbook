@@ -29,6 +29,7 @@
 		</div>
 		<!-- 멤버 정보 -->
 		<div class="col-sm-10">
+		<h3>회원정보</h3>
 		<div>
 			<a th:href="@{/removeMember}">회원탈퇴</a> <a th:href="@{/modifyMember}">회원정보수정</a>
 		</div>
@@ -37,8 +38,8 @@
 					<td th:text="${member.memberPic}"></td>
 					<td>
 						<!-- 디폴트 말고 내 사진을 업로드해쓰면 내 사진이 보이고싶다. --> <img
-						th:src="@{${'/upload/'+member.memberPic}}" width="400"
-						height="500">
+						th:src="@{${'/upload/'+member.memberPic}}" width="200"
+						height="200">
 					</td>
 				</tr>
 				<tr>
