@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.gdu.ditestweb.cashbook1.mapper.QboardMapper">
+
+	<!-- 포스트 삭제 -->
+	<delete id="deleteQboard" parameterType="int">
+		delete from qboard
+		where board_no=#{boardNo}
+	</delete>
+
+	<!-- 덧글 일괄 삭제 -->
+	<delete id="deleteQcomments2" parameterType="int">
+		delete from qcomment
+		where board_no=#{boardNo}
+	</delete>
+
+	<!-- 덧글 삭제 -->
+	<delete id="deleteQcomments" parameterType="int">
+		delete from qcomment
+		where comment_no=#{commentNo}
+	</delete>
+
+	<!-- 덧글 추가 -->
+	<insert id="insertQcomments"
+		parameterType="com.gdu.ditestweb.cashbook1.vo.Qcomment">
+		insert into qcomment(
+		member_id,
+		comment_contents,
+		board_no,
+		comment_date
+		)values(
+		#{memberId},
+		#{commentContents},
+		#{boardNo},
+		now()
+		)
+	</insert>
+
+
+	<!-- 게시글 추가 -->
+	<insert id="insertQboard"
+		parameterType="com.gdu.ditestweb.cashbook1.vo.Qboard">
+		insert into qboard(
+		member_id,
+		board_title,
+		board_contents,
+		board_date
+		)values(
+		#{memberId},
+		#{boardTitle},
+		#{boardContents},
+		now()
+		)
+	</insert>
+
+	<!-- boardNo에 해당되는 큐보드 덧글 리스트 -->
+	<select id="selectQcommentList" parameterType="int"
+		resultType="com.gdu.ditestweb.cashbook1.vo.Qcomment">
+		select 
+		comment_no as commentNo,
+		member_id as memberId,
+		comment_contents as
+		commentContents,
+		comment_date as commentDate
+		from qcomment
+		where
+		board_no=#{boardNo}
+	</select>
+
+	<!-- boardNo에 해당하는 큐보드 리스트 -->
+	<select id="selectQboardOne" parameterType="int"
+		resultType="com.gdu.ditestweb.cashbook1.vo.Qboard">
+		select
+		board_no as boardNo,
+		member_id as memberId,
+		board_title as boardTitle,
+		board_contents as boardContents,
+		board_date
+		as boardDate
+		from qboard
+		where board_no=#{boardNo}
+	</select>
+
+	<!-- 큐보드 리스트 전체 불러오기 -->
+	<select id="selectQboardList"
+		resultType="com.gdu.ditestweb.cashbook1.vo.Qboard">
+		select board_no as boardNo,
+		member_id as memberId,
+		board_title as boardTitle,
+		board_contents as boardContents,
+		board_date
+		as boardDate
+		from qboard
+	</select>
+</mapper>

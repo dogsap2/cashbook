@@ -4,24 +4,21 @@
 <meta charset="UTF-8">
 <title>sideMenu</title>
 <style th:fragment="side">
-body {
-  font-family: "Lato", sans-serif;
-}
 
-.sidenav {
+#aside {
      width: 200px;
-     height: 100%;
+     height: 3000px;
      position: fixed;
      background: #5BA8D8;
      overflow: hidden;
      float: left;
-}
+ }
 
 </style>
 </head>
 <body>
 	<!-- fragment1 <!-- /include/menu::sidemenu --> -->
-	<div th:fragment="sidemenu">
+	<div id="aside" th:fragment="sidemenu">
 		<!-- ${}앞에 세션안붙이면 모델안에 있는 줄 아니까 세션.붙이기 --> 
 		<div><span th:text="${session.loginMember.memberId}"></span>님</div>
 		<ul>
@@ -33,7 +30,6 @@ body {
 			<li><a th:href="@{/logout}">로그아웃</a></li>
 		</ul>
 	</div>
-	
 	<!-- fragment2 -->
 	
 	

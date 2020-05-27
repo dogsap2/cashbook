@@ -19,26 +19,34 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <style th:include="/include/menu::side"></style>
+<script>
+	
+</script>
 </head>
 <body>
 	<div class="row">
 		<div class="col-sm-2">
 			<div th:include="/include/menu::sidemenu" id="aside"></div>
 		</div>
-		<div class="col-sm-10">
-			<div align="center">
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<h1>가계부를 이용해 손쉽게 돈을 관리해보세요.</h1>
-				<!--타임리프 방법! 이자리에 sidemenu를 호출하겠습니다. 태그단위로 인크루드 가능! -->
-				<!-- <jsp:include page=> 는 jsp방식! 페이지 단위로 인크루드 가능! -->
+		<div class="container">
+		<div align="center">
+		<!-- 게시판 추가하기 -->
+		<div class="col-sm-10"></div>
+		<form method="post" action="/insertQboard">
+			<h3>게시글 추가하기</h3>
+			<div>
+			제목:<input type="text" name="boardTitle">
 			</div>
+			<div>
+			내용:
+			<textarea rows="3" cols="50" name="boardContents"></textarea>
+			</div>
+			<div>
+				<button type="submit">입력하기</button>
+			</div>
+		</form>
 		</div>
 	</div>
+</div>
 </body>
 </html>

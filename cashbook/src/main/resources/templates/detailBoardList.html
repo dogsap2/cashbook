@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style th:include="/include/menu::side"></style>
+<script>
+	
+</script>
+</head>
+<body>
+
+	<div class="row">
+		<div class="col-sm-2">
+			<!-- 메뉴 -->
+			<div th:include="/include/menu::sidemenu" id="aside"></div>
+		</div>
+		<div class="container">
+			<div class="col-sm-10">
+				<!-- 멤버 정보 -->
+				<h3>게시판 상세보기</h3>
+				<!-- 이전글과 다음글 넣기....-->
+
+				<div th:text=${qboard.boardTitle}></div>
+				<div th:text=${qboard.memberId}></div>
+				<div th:text=${qboard.boardDate}></div>
+				<div th:text=${qboard.boardContents}></div>
+
+				<div>
+					<a th:href="@{/qboardList}">목록</a> <a th:href="@{/modifyQboardList}">수정</a> 
+					<a th:href="@{/deleteQboardList/(boardNo=${qboard.boardNo})}">삭제</a>
+				</div>
+				
+				<!-- 덧글 쓰고 넘겨야함  -->
+				<form method="post" th:action="@{/insertComment/(boardNo=${qboard.boardNo})}">
+					<input type="text" name="commentContents" value="댓글 입력">
+					<button type="submit">덧글입력</button>
+				</form>
+
+				<!-- 덧글 리스트 뽑아야함 -->
+				<h3>덧글 리스트</h3>
+				<table border="1" class="table table-bordered">
+					<tr th:each="list : ${commentList}">
+						<td th:text=${list.memberId}></td>
+						<td th:text=${list.commentContents}></td>
+						<td th:text=${list.commentDate}></td>
+						<td><a th:href="@{/modifyComment}">수정</a></td>
+						<td><a th:href="@{/deleteComment/(boardNo=${qboard.boardNo},commentNo=${list.commentNo})}">삭제</a></td>
+					</tr>
+
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

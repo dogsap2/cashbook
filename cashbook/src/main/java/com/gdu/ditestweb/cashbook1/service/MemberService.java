@@ -28,7 +28,7 @@ public class MemberService {
 	private MemberidMapper memberidMapper;
 	@Autowired
 	private JavaMailSender javaMailSender; // @Component와 아이F들....
-	@Value("D:\\git-cashbook\\cashbook\\src\\main\\resources\\static\\upload\\")
+	@Value("C:\\Users\\gd\\git\\cashbook\\cashbook\\src\\main\\resources\\static\\upload\\")
 	private String path;
 	
 	//비밀번호 찾기
@@ -126,8 +126,7 @@ public class MemberService {
 		try {
 			mf.transferTo(file);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException();
+			e.printStackTrace();			
 			// Exception
 			// 1. 예외처리를 해야만 문법적으로 이상없는 예외
 			// 2. 예외처리를 코드에서 구현하지 않아도 아무문제없는 예외 runtimeException

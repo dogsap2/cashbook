@@ -18,56 +18,65 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<style th:include="/include/menu::side"></style>
 </head>
 <body>
-	<div class="container">
-		<h1>2020년 가계부</h1>
-		<div th:include="/include/menu::sidemenu"></div>
-		<div>
-			<!-- 현재 날짜 담아온 거 가져옴-->
-			<h3 th:text="${day}"></h3>
+	<div class="row">
+		<div class="col-sm-2">
+			<div th:include="/include/menu::sidemenu" id="aside"></div>
+		</div>
+		<div class="col-sm-10">
+			<h3>일별 가계부 관리</h3>
 			<div>
-				<a th:href="@{/getCashListByDate(day=${day.plusDays(-1)})}">이전</a>
-				<a th:href="@{/getCashListByDate(day=${day.plusDays(1)})}">다음</a>
+				<!-- 현재 날짜 담아온 거 가져옴-->
+				<h3 th:text="${day}"></h3>
+				<div>
+					<a th:href="@{/getCashListByDate(day=${day.plusDays(-1)})}">이전</a>
+					<a th:href="@{/getCashListByDate(day=${day.plusDays(1)})}">다음</a>
+				</div>
+			</div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th>카테고리</th>
+						<th>수입</th>
+						<th>지출</th>
+						<th>장소</th>
+						<th>메모</th>
+						<th>삭제</th>
+						<th>수정</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cash, index : ${cashList}">
+						<td th:text="${index.index}+1"></td>
+						<!-- 앞에있는 번호 출력 -->
+						<td th:text="${cash.categoryName}"></td>
+
+						<!-- 타임리프 if~else문 : if/unless -->
+						<td th:if="${cash.cashKind} == '수입'"
+							th:text="${'+'+ cash.cashPrice}"></td>
+						<td th:unless="${cash.cashKind} == '수입'"></td>
+
+						<!-- 삼항연산자: 조건? 참값: 거짓값 -->
+						<td
+							th:text="${cash.cashKind} == '지출'? ${'-'+ cash.cashPrice} : ''"></td>
+						<td th:text="${cash.cashPlace}"></td>
+						<td th:text="${cash.cashMemo}"></td>
+						<td><a th:href="@{/removeCash(cashNo=${cash.cashNo})}">삭제</a></td>
+						<td><a th:href="@{/modifyCash(cashNo=${cash.cashNo})}">수정</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				(수입+지출)합계 : <span
+					th:text="${#numbers.formatInteger(cashKindSum,0,'COMMA')}">원</span>
+			</div>
+			<div>
+			<a th:href="@{/insertCash(day=${day})}" class="btn btn-primary">추가하기</a>
 			</div>
 		</div>
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>&nbsp;</th>
-					<th>카테고리</th>
-					<th>수입</th>
-					<th>지출</th>
-					<th>장소</th>
-					<th>메모</th>
-					<th>삭제</th>
-					<th>수정</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="cash, index : ${cashList}">
-					<td th:text="${index.index}+1"></td>
-					<!-- 앞에있는 번호 출력 -->
-					<td th:text="${cash.categoryName}"></td>
-
-					<!-- 타임리프 if~else문 : if/unless -->
-					<td th:if="${cash.cashKind} == '수입'"
-						th:text="${'+'+ cash.cashPrice}"></td>
-					<td th:unless="${cash.cashKind} == '수입'"></td>
-					
-					<!-- 삼항연산자: 조건? 참값: 거짓값 -->
-					<td th:text="${cash.cashKind} == '지출'? ${'-'+ cash.cashPrice} : ''"></td>
-					<td th:text="${cash.cashPlace}"></td>
-					<td th:text="${cash.cashMemo}"></td>
-					<td><a th:href="@{/removeCash(cashNo=${cash.cashNo})}">삭제</a></td>
-					<td><a href="">수정</a></td>
-				</tr>
-			</tbody>
-		</table>
-		<div>(수입+지출)합계 : <span th:text="${#numbers.formatInteger(cashKindSum,0,'COMMA')}"></span></div>
-		<div>
-			<button type="button">입력</button>
 		</div>
-	</div>
 </body>
 </html>

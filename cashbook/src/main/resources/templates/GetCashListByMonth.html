@@ -58,7 +58,7 @@ div.gd-title {
 			<div th:include="/include/menu::sidemenu" id="aside"></div>
 		</div>
 		<div class="col-sm-10">
-			<h3>월별 가계부 관리3</h3>
+			<h3>월별 가계부 관리</h3>
 			<h3 th:text="${month+'월'}">가계부</h3>
 			<div>
 				<a th:href="@{/getCashListByMonth(day=${day.plusMonths(-1)})}">이전</a>
@@ -75,14 +75,17 @@ div.gd-title {
 			<!--  5월달 lastDay==31 -->
 			<!-- 삼항연산자 : 조건 ? 참값 : 거짓값  -->
 			<!--index.index+':'  인덱스는 줄바꾸기위해..-->
+			<!--5월달 lastDay==31 -->
+			<!-- 삼항연산자 : 조건 ? 참값 : 거짓값  -->
 			<div
-				th:each="i,index: ${#numbers.sequence(1,lastDay+firstDayOfWeek-1)}"
+				th:each="i,index: ${#numbers.sequence(1,lastDay+(firstDayOfWeek-1))}"
 				th:class="${index.index%7}==0 ? 'gd-clear gd-left': 'gd-left'">
-				
-				<!-- 값이 0보다 크면 출력 그게 아니면 공백('')으로 표현  -->
-				<div th:text="${i-(firstDayOfWeek-1)}>0?${i-(firstDayOfWeek-1)}:''"></div>
+				<!--  7로 나누었을때 0으로 떨어지면 'gd-clear gd-left'적용  아니면 : 'gd-left'  -->
+				<div
+					th:text="${i-(firstDayOfWeek-1)}>0 ?  ${i-(firstDayOfWeek-1)}:''"></div>
+				<!-- {i-(firstDayOfWeek-1)}값이 0보다 크면 출력 그게 아니면 공백('')으로 표현  -->
 				<div th:each="dp : ${dayAndPriceList}">
-					<!-- 수입지출합 -->
+					<!-- 수입지출합, 컨트롤러에서 받은거 가져오기 , 반복문 리스트를 dp에 담음 -->
 					<span th:if="${i-(firstDayOfWeek-1)}==${dp.day}"> <span
 						th:class="${dp.price}>=0? 'gd-blue':'gd-red'"
 						th:text="${dp.price}"></span>

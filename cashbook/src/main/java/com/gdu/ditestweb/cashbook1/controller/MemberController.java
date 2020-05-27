@@ -92,7 +92,7 @@ public class MemberController {
 		// 부합하지 않으면 서버 재요청
 		if (memberForm.getMemberPic() != null && !originName.equals("")) {
 			if (!memberForm.getMemberPic().getContentType().equals("image/png")
-					&& !memberForm.getMemberPic().getContentType().equals("image/jpg")
+					&& !memberForm.getMemberPic().getContentType().equals("image/jpeg")
 					&& !memberForm.getMemberPic().getContentType().equals("image/gif")) {
 				return "redirect:/modifyMember?imgMsg=n";
 			}
