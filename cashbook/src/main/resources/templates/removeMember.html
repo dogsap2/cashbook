@@ -18,34 +18,45 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style th:include="/include/menu::side"></style>
 <script>
-let helperInit = function(){
-	$('#pwHelper').text("");
-}
+	let helperInit = function() {
+		$('#pwHelper').text("");
+	}
 
-$(document).ready(function(){
-	$('#btn').click(function(){
-		if($('#memberPw').val().length<4){
-			helperInit();
-			$('#pwHelper').text("pw 4자이상");
-			$('#memberPw').focus();
-		}else{
-			$('#myform').submit();
-		}
+	$(document).ready(function() {
+		$('#btn').click(function() {
+			if ($('#memberPw').val().length < 4) {
+				helperInit();
+				$('#pwHelper').text("pw 4자이상");
+				$('#memberPw').focus();
+			} else {
+				$('#myform').submit();
+			}
+		});
 	});
-});
 </script>
 </head>
 <body>
-<div th:include="/include/menu::sidemenu"></div> 
-	<form method="post" action="/removeMember" id="myform">
-		<div>
-			비밀번호 :<input type="password" name="memberPw" id="memberPw"> 
-			<span id="pwHelper"></span>
+	<div class="row">
+		<div class="col-sm-2">
+			<div th:include="/include/menu::sidemenu" id="aside"></div>
 		</div>
-		<div>
-			<button type="button" id="btn">확인</button>
+		<div class="col-sm-10">
+			<div align="center">
+			<h3>회원탈퇴 비밀번호 확인</h3>
+			<form method="post" action="/removeMember" id="myform">
+				<div>
+					비밀번호 :<input type="password" name="memberPw" id="memberPw">
+					<span id="pwHelper"></span>
+				</div>
+				<br>
+				<div>
+					<button type="button" id="btn">확인</button>
+				</div>
+			</form>
 		</div>
-	</form>
+		</div>
+	</div>
 </body>
 </html>
