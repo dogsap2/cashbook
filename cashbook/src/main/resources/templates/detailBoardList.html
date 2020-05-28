@@ -57,7 +57,7 @@
 				<div>
 					<textarea class="form-control" rows="10" cols="50"
 						th:value="${qboard.boardContents}" th:inline="text"
-						readonly="readonly">
+						readonly="readonly">[[*{qboard.boardContents}]]
 						</textarea>
 					<div>
 						<a class="btn btn-primary" th:href="@{/qboardList}">목록</a> <a
