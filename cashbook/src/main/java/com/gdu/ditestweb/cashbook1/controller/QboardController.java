@@ -22,6 +22,27 @@ public class QboardController {
 	@Autowired
 	public QboardService qboardService;
 
+	//포스트 수정하기 링크
+	@GetMapping("/modifyQboardList")
+	public String modifyQboard(HttpSession session,Model model,@RequestParam("boardNo") int boardNo) {
+		if(session.getAttribute("loginMember")==null) {
+			return "redirect:/";
+		}
+		
+		HashMap<String, Object> map = qboardService.selectQboardOne(boardNo);
+		model.addAttribute("qboard", map.get("qboard"));
+		return "modifyQboardList";
+	}
+	
+	//포스트 수정하기 포스트
+	@PostMapping("/modifyQboardList")
+	public String modifyQboard(Qboard qboard) {
+		
+		//업데이트 서비스 실행
+		qboardService.updateQboardone(qboard);
+		return "redirect:/detailBoardList?boardNo="+qboard.getBoardNo();
+	}
+	
 	//포스트 삭제하기
 	@GetMapping("/deleteQboardList")
 	public String deleteQboard(@RequestParam("boardNo")int boardNo) {

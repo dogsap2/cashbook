@@ -10,6 +10,9 @@ import com.gdu.ditestweb.cashbook1.vo.Qcomment;
 @Mapper
 public interface QboardMapper {
 
+	
+	//포스트 수정
+	public int updateQboardone(Qboard qboard);
 	//포스트 삭제
 	public void deleteQboard(int boardNo);
 	

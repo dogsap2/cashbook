@@ -5,6 +5,16 @@
 <mapper
 	namespace="com.gdu.ditestweb.cashbook1.mapper.QboardMapper">
 
+	<!-- 포스트 업데이트 -->
+	<update id="updateQboardone" parameterType="com.gdu.ditestweb.cashbook1.vo.Qboard">
+		update qboard
+		set
+		member_id = #{memberId},
+		board_title = #{boardTitle},
+		board_contents = #{boardContents},
+		board_date = now()
+		where board_no= #{boardNo}
+	</update>
 	<!-- 포스트 삭제 -->
 	<delete id="deleteQboard" parameterType="int">
 		delete from qboard

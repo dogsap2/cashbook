@@ -17,6 +17,11 @@ public class QboardService {
 	@Autowired
 	public QboardMapper qboardMapper;
 	
+	//포스트 수정
+	public int  updateQboardone(Qboard qboard) {
+		return qboardMapper.updateQboardone(qboard);
+	}
+	
 	//포스트 삭제
 	public void deleteQboard(int boardNo) {
 		qboardMapper.deleteQcomments2(boardNo);

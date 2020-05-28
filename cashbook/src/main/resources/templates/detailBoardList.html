@@ -58,12 +58,12 @@
 					<textarea class="form-control" rows="10" cols="50"
 						th:value="${qboard.boardContents}" th:inline="text"
 						readonly="readonly">[[*{qboard.boardContents}]]
+						
 						</textarea>
 					<div>
-						<a class="btn btn-primary" th:href="@{/qboardList}">목록</a> <a
-							class="btn btn-primary" th:href="@{/modifyQboardList}">수정</a> <a
-							class="btn btn-primary"
-							th:href="@{/deleteQboardList/(boardNo=${qboard.boardNo})}">삭제</a>
+						<a class="btn btn-primary" th:href="@{/qboardList}">목록</a>
+						<a class="btn btn-primary" th:href="@{/modifyQboardList/(boardNo=${qboard.boardNo})}">수정</a> 
+						<a class="btn btn-primary" th:href="@{/deleteQboardList/(boardNo=${qboard.boardNo})}">삭제</a>
 					</div>
 					<br>
 					<!-- 덧글 쓰고 넘겨야함  -->
@@ -80,7 +80,7 @@
 							<td th:text=${list.memberId}></td>
 							<td th:text=${list.commentContents}></td>
 							<td th:text=${list.commentDate}></td>
-							<td><a th:href="@{/modifyComment}">수정</a></td>
+							<td><a th:href="@{/modifyComment/(boardNo=${qboard.boardNo},commentNo=${list.commentNo})}">수정</a></td>
 							<td><a
 								th:href="@{/deleteComment/(boardNo=${qboard.boardNo},commentNo=${list.commentNo})}">삭제</a></td>
 						</tr>
