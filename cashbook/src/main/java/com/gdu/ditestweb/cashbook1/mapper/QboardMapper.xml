@@ -5,6 +5,15 @@
 <mapper
 	namespace="com.gdu.ditestweb.cashbook1.mapper.QboardMapper">
 
+	<!-- 덧글 업데이트 -->
+	<update id="updateQcommentone" parameterType="com.gdu.ditestweb.cashbook1.vo.Qcomment">
+		update qcomment
+		set
+		comment_contents = #{commentContents}
+		where comment_no = #{commentNo}
+		
+	</update>
+
 	<!-- 포스트 업데이트 -->
 	<update id="updateQboardone" parameterType="com.gdu.ditestweb.cashbook1.vo.Qboard">
 		update qboard
