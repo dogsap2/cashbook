@@ -60,10 +60,15 @@
 						readonly="readonly">[[*{qboard.boardContents}]]
 						
 						</textarea>
-					<div>
-						<a class="btn btn-primary" th:href="@{/qboardList}">목록</a>
-						<a class="btn btn-primary" th:href="@{/modifyQboardList/(boardNo=${qboard.boardNo})}">수정</a> 
-						<a class="btn btn-primary" th:href="@{/deleteQboardList/(boardNo=${qboard.boardNo})}">삭제</a>
+					<br>
+					<div align="center">
+						<a class="btn btn-primary" th:href="@{/qboardList}">목록</a> <span
+							th:if="${session.loginMember.memberId == qboard.memberId||session.loginMember.memberLevel >=10}">
+							<a class="btn btn-primary"
+							th:href="@{/modifyQboardList/(boardNo=${qboard.boardNo})}">수정</a>
+							<a class="btn btn-primary"
+							th:href="@{/deleteQboardList/(boardNo=${qboard.boardNo})}">삭제</a>
+						</span>
 					</div>
 					<br>
 					<!-- 덧글 쓰고 넘겨야함  -->
@@ -76,13 +81,16 @@
 					<!-- 덧글 리스트 뽑아야함 -->
 					<h3>덧글 리스트</h3>
 					<table border="1" class="table table-bordered">
-						<tr th:each="list : ${commentList}">
+						<tr	th:each="list : ${commentList}">
 							<td th:text=${list.memberId}></td>
 							<td th:text=${list.commentContents}></td>
 							<td th:text=${list.commentDate}></td>
-							<td><a th:href="@{/modifyComment/(boardNo=${qboard.boardNo},commentNo=${list.commentNo})}">수정</a></td>
-							<td><a
-								th:href="@{/deleteComment/(boardNo=${qboard.boardNo},commentNo=${list.commentNo})}">삭제</a></td>
+							
+							<td th:if="${session.loginMember.memberId == list.memberId OR session.loginMember.memberLevel == 10}">
+							<a th:href="@{/modifyComment/(boardNo=${qboard.boardNo},commentNo=${list.commentNo})}">수정</a></td>
+							
+							<td th:if="${session.loginMember.memberId == list.memberId OR session.loginMember.memberLevel == 10}">
+							<a th:href="@{/deleteComment/(boardNo=${qboard.boardNo},commentNo=${list.commentNo})}">삭제</a></td>
 						</tr>
 					</table>
 				</div>

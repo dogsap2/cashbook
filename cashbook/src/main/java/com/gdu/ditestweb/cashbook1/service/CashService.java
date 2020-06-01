@@ -58,6 +58,7 @@ public class CashService {
 		return cashMapper.selectDayAndPriceList(map);
 	}
 	
+	//월별 달력
 	public Map<String,Object> getCashListByDate(Cash cash){
 		List<Cash>cashList = cashMapper.selectCashListByDate(cash);
 		int cashKindSum = cashMapper.selectCashKindSum(cash);

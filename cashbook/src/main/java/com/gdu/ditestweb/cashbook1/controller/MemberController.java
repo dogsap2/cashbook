@@ -158,7 +158,7 @@ public class MemberController {
 		model.addAttribute("member", member);
 		return "memberInfo";
 	}
-
+	//회원가입시 사용가능한 멤버  id 체크
 	@PostMapping("/checkMemberId")
 	public String checkMemberId(HttpSession session, Model model, @RequestParam("memberIdCheck") String memberIdCheck) {
 		// 로그인 중일때
@@ -209,7 +209,7 @@ public class MemberController {
 			return "login";
 		} else { // 로그인 성공시 (db서치 결과가 있으면 회원이니 로그인 성공)
 			session.setAttribute("loginMember", returnLoginMember);
-			return "redirect:/home";
+			return "home";
 		}
 	}
 

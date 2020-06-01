@@ -116,33 +116,42 @@ public class CashController {
 	@GetMapping("getCashListByMonth")
 	public String getCashListByMonth(HttpSession session, Model model, // 문자열로 넘어오면 LocalDate형으로 바꿈
 			@RequestParam(value = "day", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate day) {
-		// 로그인 하면 리다이렉트..
-		// if(session.getAttribute("loginMember")==null) {
-		// return "redirect:/";
-		// }
+		 //로그인 아닐시 백
+		 if(session.getAttribute("loginMember")==null) {
+		 return "redirect:/";
+		 }
+
+		 //day 디버깅
+		 System.out.println("day:"+day);
 
 		// 오늘날짜 cDay~!
 		Calendar cDay = Calendar.getInstance();// 오늘날짜가 들어가게됨
-		// System.out.println(cDay.get(Calendar.MONTH)+1+"<-----달출력"); //달 출력해보기 5
+		System.out.println(cDay.get(Calendar.MONTH)+1+"<-----달출력"); //달 출력해보기 5
+		
 		if (day == null) {
 			day = LocalDate.now();
 		} else {
 			// day를 cDay로형 변환 \
 			cDay.set(day.getYear(), day.getMonthValue() - 1, day.getDayOfMonth()); // 오늘날짜에서 day값과 동일한 값으로...
 			/*
-			 * LocalDate -> calendar LocalDate -> Date -> calendar LocalDate -> String ->
-			 * calendar
+			 * LocalDate -> calendar 
+			 * LocalDate -> Date -> calendar
+			 * LocalDate -> String -> calendar
+			 * LocalDate -> calendar
 			 */
 		}
 
 		/*
-		 * 1.오늘이 무슨달 2.이번달의 마지막 일 3.이번달 1일의 요일
+		 *0.오늘 LocalDate 타입
+		 *1.오늘 LocalDate 타입 
+		 *2.이번달의 마지막 일 
+		 *3.이번달 1일의 요일 
 		 */
 
 		//
 		String memberId = ((LoginMember) session.getAttribute("loginMember")).getMemberId();
 		int year = cDay.get(Calendar.YEAR);
-		int month = cDay.get(Calendar.MONTH);
+		int month = cDay.get(Calendar.MONTH)+1;
 		List<DayAndPrice> dayAndPriceList = cashService.getCashAndPriceList(memberId, year, month);
 
 		model.addAttribute("dayAndPriceList", dayAndPriceList);
@@ -166,7 +175,7 @@ public class CashController {
 		return "getCashListByMonth";
 	}
 
-	// 월별
+	// 일별
 	@GetMapping("getCashListByDate")
 	public String getCashListByDate(HttpSession session, Model model,
 			@RequestParam(value = "day", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate day) {

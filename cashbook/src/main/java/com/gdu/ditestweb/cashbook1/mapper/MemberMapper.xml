@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.gdu.ditestweb.cashbook1.mapper.MemberMapper">
-	
+
 	<!-- 멤버 pic 찾기 -->
 	<select id="selectMemberPic" parameterType="String"
 		resultType="String">
@@ -35,6 +35,8 @@
 		FROM member
 		WHERE member_name = #{memberName}
 	</select>
+	
+	
 	<!-- 회원정보 수정(사진은 변경 x) -->
 	<update id="updatenopicMember"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.Member">
@@ -43,10 +45,14 @@
 		member_pw = PASSWORD(#{memberPw}),
 		member_name = #{memberName},
 		member_addr = #{memberAddr},
-		member_phone = #{memberPhone},
+		member_phone =
+		#{memberPhone},
 		member_email = #{memberEmail}
-		where member_id = #{memberId}
+		where member_id =
+		#{memberId}
 	</update>
+	
+	
 	<!-- 회원정보 수정(사진도 같이 변경) -->
 	<update id="updateMember"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.Member">
@@ -55,11 +61,14 @@
 		member_pw = PASSWORD(#{memberPw}),
 		member_name = #{memberName},
 		member_addr = #{memberAddr},
-		member_phone = #{memberPhone},
+		member_phone =
+		#{memberPhone},
 		member_email = #{memberEmail},
 		member_pic = #{memberPic}
 		where member_id = #{memberId}
 	</update>
+	
+	
 	<!-- 현재 로그인한 멤버 회원 탈퇴 -->
 	<delete id="deleteMemberOne"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.LoginMember">
@@ -78,12 +87,16 @@
 		member_name as memberName,
 		member_addr as memberAddr,
 		member_phone as memberPhone,
-		member_email as memberEmail,
+		member_email as
+		memberEmail,
 		member_pic as memberPic
 		from member
-		where member_id = #{memberId}
+		where member_id =
+		#{memberId}
 	</select>
-
+	
+	
+	<!-- 사용 가능 아이디 구하는 -->
 	<select id="selectMemberId" parameterType="String"
 		resultType="String">
 		select
@@ -94,17 +107,22 @@
 		where me = #{memberIdCheck}
 	</select>
 
+	<!-- 로그인 -->
 	<select id="selectLoginMember"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.LoginMember"
 		resultType="com.gdu.ditestweb.cashbook1.vo.LoginMember">
 		select
 		member_id as memberId,
-		member_pw as memberPw
-		from member
+		member_pw as memberPw,
+		member_level as memberLevel
+		from
+		member
 		where member_id = #{memberId}
 		and member_pw =
 		PASSWORD(#{memberPw})
 	</select>
+	
+	
 	<insert id="insertMember"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.Member">
 		insert into member(

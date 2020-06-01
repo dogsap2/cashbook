@@ -22,6 +22,9 @@
 		<!-- ${}앞에 세션안붙이면 모델안에 있는 줄 아니까 세션.붙이기 --> 
 		<div><span th:text="${session.loginMember.memberId}"></span>님</div>
 		<ul>
+		<li th:if="${session.loginMember.memberLevel>=10}">
+			<a th:href="@{/adminPage}">관리자 페이지</a>
+		</li>
 			<li><a th:href="@{/home}">홈</a></li>
 			<li><a th:href="@{/memberInfo}">회원정보</a></li>
 			<li><a th:href="@{/getCashListByDate}">일별 가계부 관리</a></li>
@@ -29,6 +32,8 @@
 			<li><a th:href="@{/qboardList}">게시판</a></li>
 			<li><a th:href="@{/logout}">로그아웃</a></li>
 		</ul>
+		
+		
 	</div>
 	<!-- fragment2 -->
 	
