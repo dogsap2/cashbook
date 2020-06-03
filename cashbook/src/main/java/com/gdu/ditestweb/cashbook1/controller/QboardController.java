@@ -22,6 +22,33 @@ public class QboardController {
 	@Autowired
 	public QboardService qboardService;
 
+	
+	//덧글 수정
+	@PostMapping("/modifyQcomment")
+	public String modifyQcomment(HttpSession session,Qcomment qcomment){
+		if(session.getAttribute("loginMember")==null) {
+			return "redirect:/";
+		}
+		System.out.println(qcomment+"<---qcomment");
+		qboardService.updateQcommentOne(qcomment);
+		return "redirect:/detailBoardList?boardNo="+qcomment.getBoardNo();
+	}
+		
+	
+	//덧글 하나만 가져오기(수정용)
+	@GetMapping("/modifyQcomment")
+	public String modifyQcomment(HttpSession session,@RequestParam("commentNo") int commentNo,Model model) {
+		if(session.getAttribute("loginMember")==null) {
+			return "redirect:/";
+		}
+		
+		Qcomment qcomment = qboardService.selectQcommentOne(commentNo);
+		model.addAttribute("qcomment",qcomment);
+		return "modifyQcommentList";
+		
+	}
+
+	
 	//포스트 수정하기 링크
 	@GetMapping("/modifyQboardList")
 	public String modifyQboard(HttpSession session,Model model,@RequestParam("boardNo") int boardNo) {

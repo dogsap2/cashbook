@@ -10,7 +10,10 @@ import com.gdu.ditestweb.cashbook1.vo.Qcomment;
 @Mapper
 public interface QboardMapper {
 
-	
+	//덧글 하나만 뽑아오가
+	public Qcomment selectQcommentOne(int commentNo);
+	//덧글 수정
+	public int updateQcommentOne(Qcomment qcomment);
 	//포스트 수정
 	public int updateQboardone(Qboard qboard);
 	//포스트 삭제

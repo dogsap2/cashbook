@@ -87,7 +87,7 @@
 							<td th:text=${list.commentDate}></td>
 							
 							<td th:if="${session.loginMember.memberId == list.memberId OR session.loginMember.memberLevel == 10}">
-							<a th:href="@{/modifyComment/(boardNo=${qboard.boardNo},commentNo=${list.commentNo})}">수정</a>
+							<a th:href="@{/modifyQcomment/(commentNo=${list.commentNo})}">수정</a>
 							<a th:href="@{/deleteComment/(boardNo=${qboard.boardNo},commentNo=${list.commentNo})}">삭제</a>
 							</td>
 						</tr>
@@ -97,4 +97,7 @@
 		</div>
 	</div>
 </body>
+<script>
+
+</script>
 </html>

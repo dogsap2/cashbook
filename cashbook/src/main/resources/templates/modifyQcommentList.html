@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style th:include="/include/menu::side"></style>
+<script>
+	
+</script>
+</head>
+<body>
+	<div class="row">
+		<div class="col-sm-2">
+			<div th:include="/include/menu::sidemenu" id="aside"></div>
+		</div>
+		<div align="center">
+		<div class="col-sm-10"></div>
+		<h1>덧글수정</h1>
+		<form method ="post" action="/modifyQcomment">
+			<div>
+				<input type="hidden" th:value="${qcomment.boardNo}" name="boardNo">
+				<input type="hidden" th:value="${qcomment.commentNo}" name="commentNo">
+				<input type="hidden" th:value="${qcomment.memberId}" name="memberId">
+			</div>
+			<div>
+				내용:<input type="text" th:value="${qcomment.commentContents}" name="commentContents">
+			</div>
+			<div>
+				<button type="submit">수정하기</button>
+			</div>
+		</form>
+		</div>
+	</div>
+</body>
+</html>

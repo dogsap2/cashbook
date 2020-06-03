@@ -17,6 +17,15 @@ public class QboardService {
 	@Autowired
 	public QboardMapper qboardMapper;
 	
+	//덧글 하나만 뽑기
+	public Qcomment selectQcommentOne(int commentNo) {
+		return qboardMapper.selectQcommentOne(commentNo);
+	}
+	
+	//덧글 수정
+	public int updateQcommentOne(Qcomment qcomment) {
+		return qboardMapper.updateQcommentOne(qcomment);
+	}
 	//포스트 수정
 	public int  updateQboardone(Qboard qboard) {
 		return qboardMapper.updateQboardone(qboard);
