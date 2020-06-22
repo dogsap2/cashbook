@@ -27,17 +27,59 @@
 		</div>
 		<div class="col-sm-10">
 			<div align="center">
+				<div align="center">
+				<h1><strong>구현기능목록</strong></h1>
 				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
+					<!-- 유저 -->
+					<h3>
+						<strong>유저</strong>
+					</h3>
+					<strong>회원가입 기능 구현</strong>
+					<ol style="width: fit-content">
+						<li>아이디 중복 될 경우 회원가입불가</li>
+						<li>비밀번호 4글자 이상 및 일치시 회원가입 가능</li>
+						<li>프로필사진 추가 후 회원가입가능함</li>
+					</ol>
+					<!-- 회원정보 -->
+					<h3>
+						<strong>회원정보</strong>
+					</h3>
+					<strong>프로필 및 상세정보 수정가능</strong>
+					<ol style="width: fit-content">
+						<li>사용자 이름, 주소, 전화번호, 이메일 변경 가능</li>
+						<li>현재 비밀번호 재확인해야 수정완료할 수 있음</li>
+					</ol>
+					<!-- 가게부관리 -->
+					<h3>
+						<strong>가계부 관리</strong>
+					</h3>
+					<strong>일별 해당하는 내역들 리스트로 보여주며 월별로 한눈에 볼 수 있게 구현</strong>
+					<ol style="width: fit-content">
+						<li>일,월별로 기입한 내역들 볼 수 있으며 추가, 수정, 삭제 기능 구현</li>
+						<li>일별가계부관리-일별에 해당하는 내역들 리스트로 보여줌</li>
+						<li>월에 해당하는 금액 수입-지출 계산이 되어 보여진다.</li>
+					</ol>
+					<!-- 게시판관리 -->
+					<h3>
+						<strong>게시판 관리</strong>
+					</h3>
+					<strong>가계부 이용 사용자들이 문의를 남길 수 있게 구현</strong>
+					<ol style="width: fit-content">
+						<li>사용자는 본인의 게시판 글과 덧글을 수정 삭제할 수 있음</li>
+					</ol>
+					<!-- 관리자 -->
+					<h3>
+						<strong>관리자</strong>
+					</h3>
+					<strong>회원과 관리자를 레벨로 나누어 관리자 권한 부여</strong>
+					<ol style="width: fit-content">
+						<li>관리자 아이디:misun 비밀번호:1234</li>
+					</ol>
+				</div>
 				<h1>가계부를 이용해 손쉽게 돈을 관리해보세요.</h1>
 				<!-- 관리자 모드로 접속시 아래 관리자 모드라고 뜸. -->
 				<div th:if="${session.loginMember.memberLevel>=10}">
-				<h3>관리자모드</h3>
+					<h3>관리자모드</h3>
 				</div>
 				<!--타임리프 방법! 이자리에 sidemenu를 호출하겠습니다. 태그단위로 인크루드 가능! -->
 				<!-- <jsp:include page=> 는 jsp방식! 페이지 단위로 인크루드 가능! -->

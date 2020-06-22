@@ -128,14 +128,18 @@ public class QboardController {
 
 	// 큐리스트 전체 보기
 	@GetMapping("/qboardList")
-	public String selectQboardList(HttpSession session, Model model) {
+	//currentPage랑 searchWord requestParam 으로 가져오기
+	public String selectQboardList(HttpSession session, Model model,@RequestParam(value="currentPage",defaultValue="1")int currentPage,@RequestParam(value="seachWord",defaultValue ="")String searchWord) {
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/";
 		}
-		// 리스트 불러오는....
+		//디버깅
+		System.out.println(currentPage+"<----Qboard currentPage");
+		// 리스트 불러오기
 		List<Qboard> list = qboardService.selectQboardList();
 		System.out.println(list + "<---Qboardlist");
 		model.addAttribute("list", list);
+		model.addAttribute("currentPage",currentPage);
 
 		return "qboardList";
 	}

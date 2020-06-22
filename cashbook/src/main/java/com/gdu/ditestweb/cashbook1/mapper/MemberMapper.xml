@@ -9,7 +9,7 @@
 	<select id="selectMemberPic" parameterType="String"
 		resultType="String">
 		SELECT member_pic
-		FROM member
+		FROM cashbook_member
 		WHERE member_id = #{memberId}
 	</select>
 
@@ -18,7 +18,7 @@
 		pw를 메일로 전송 -->
 	<update id="updateMemberPw"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.Member">
-		update member
+		update cashbook_member
 		set member_pw = PASSWORD(#{memberPw})
 		where
 		member_id = #{memberId}
@@ -32,7 +32,7 @@
 		<!-- 아이디 앞3개랑 뒤에 별4개가 붙어서 출력됩니다. -->
 		SELECT
 		CONCAT(SUBSTRING(member_id,1,3),'****') <!-- concat 합치다 -->
-		FROM member
+		FROM cashbook_member
 		WHERE member_name = #{memberName}
 	</select>
 	
@@ -40,7 +40,7 @@
 	<!-- 회원정보 수정(사진은 변경 x) -->
 	<update id="updatenopicMember"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.Member">
-		update member
+		update cashbook_member
 		set
 		member_pw = PASSWORD(#{memberPw}),
 		member_name = #{memberName},
@@ -56,7 +56,7 @@
 	<!-- 회원정보 수정(사진도 같이 변경) -->
 	<update id="updateMember"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.Member">
-		update member
+		update cashbook_member
 		set
 		member_pw = PASSWORD(#{memberPw}),
 		member_name = #{memberName},
@@ -68,11 +68,11 @@
 		where member_id = #{memberId}
 	</update>
 	
-	
+
 	<!-- 현재 로그인한 멤버 회원 탈퇴 -->
 	<delete id="deleteMemberOne"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.LoginMember">
-		delete from member
+		delete from cashbook_member
 		where member_id = #{memberId}
 		and
 		member_pw = PASSWORD(#{memberPw})
@@ -90,7 +90,7 @@
 		member_email as
 		memberEmail,
 		member_pic as memberPic
-		from member
+		from cashbook_member
 		where member_id =
 		#{memberId}
 	</select>
@@ -101,9 +101,9 @@
 		resultType="String">
 		select
 		me
-		from ( SELECT member_id as me FROM member
+		from ( SELECT member_id as me FROM cashbook_member
 		UNION
-		SELECT member_id as me FROM memberid)t
+		SELECT member_id as me FROM cashbook_memberid)t
 		where me = #{memberIdCheck}
 	</select>
 
@@ -116,7 +116,7 @@
 		member_pw as memberPw,
 		member_level as memberLevel
 		from
-		member
+		cashbook_member
 		where member_id = #{memberId}
 		and member_pw =
 		PASSWORD(#{memberPw})
@@ -125,7 +125,7 @@
 	
 	<insert id="insertMember"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.Member">
-		insert into member(
+		insert into cashbook_member(
 		member_id,
 		member_pw,
 		member_name,

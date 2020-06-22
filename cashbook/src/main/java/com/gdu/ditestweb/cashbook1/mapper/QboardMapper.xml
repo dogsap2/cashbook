@@ -7,7 +7,7 @@
 
 	<!-- 덧글 업데이트 -->
 	<update id="updateQcommentOne" parameterType="com.gdu.ditestweb.cashbook1.vo.Qcomment">
-		update qcomment
+		update cashbook_qcomment
 		set
 		comment_contents = #{commentContents},
 		comment_date = now()
@@ -17,7 +17,7 @@
 
 	<!-- 포스트 업데이트 -->
 	<update id="updateQboardone" parameterType="com.gdu.ditestweb.cashbook1.vo.Qboard">
-		update qboard
+		update cashbook_qboard
 		set
 		member_id = #{memberId},
 		board_title = #{boardTitle},
@@ -27,26 +27,26 @@
 	</update>
 	<!-- 포스트 삭제 -->
 	<delete id="deleteQboard" parameterType="int">
-		delete from qboard
+		delete from cashbook_qboard
 		where board_no=#{boardNo}
 	</delete>
 
 	<!-- 덧글 일괄 삭제 -->
 	<delete id="deleteQcomments2" parameterType="int">
-		delete from qcomment
+		delete from cashbook_qcomment
 		where board_no=#{boardNo}
 	</delete>
 
 	<!-- 덧글 삭제 -->
 	<delete id="deleteQcomments" parameterType="int">
-		delete from qcomment
+		delete from cashbook_qcomment
 		where comment_no=#{commentNo}
 	</delete>
 
 	<!-- 덧글 추가 -->
 	<insert id="insertQcomments"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.Qcomment">
-		insert into qcomment(
+		insert into cashbook_qcomment(
 		member_id,
 		comment_contents,
 		board_no,
@@ -63,7 +63,7 @@
 	<!-- 게시글 추가 -->
 	<insert id="insertQboard"
 		parameterType="com.gdu.ditestweb.cashbook1.vo.Qboard">
-		insert into qboard(
+		insert into cashbook_qboard(
 		member_id,
 		board_title,
 		board_contents,
@@ -85,7 +85,7 @@
 		comment_contents as
 		commentContents,
 		comment_date as commentDate
-		from qcomment
+		from cashbook_qcomment
 		where
 		comment_no=#{commentNo}
 	</select>
@@ -99,7 +99,7 @@
 		comment_contents as
 		commentContents,
 		comment_date as commentDate
-		from qcomment
+		from cashbook_qcomment
 		where
 		board_no=#{boardNo}
 	</select>
@@ -114,7 +114,7 @@
 		board_contents as boardContents,
 		board_date
 		as boardDate
-		from qboard
+		from cashbook_qboard
 		where board_no=#{boardNo}
 	</select>
 
@@ -127,6 +127,6 @@
 		board_contents as boardContents,
 		board_date
 		as boardDate
-		from qboard
+		from cashbook_qboard
 	</select>
 </mapper>

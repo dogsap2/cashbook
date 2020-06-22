@@ -182,7 +182,8 @@ public class MemberController {
 		return "addMember";
 	}
 
-	@GetMapping("/login") // login form
+	// login form
+	@GetMapping("/login") 
 	public String login(HttpSession session) {
 		// 로그인 중일때
 		if (session.getAttribute("loginMember") != null) {
@@ -195,7 +196,6 @@ public class MemberController {
 	@PostMapping("/login") // login action
 	public String login(Model model, LoginMember loginMember, HttpSession session) {// HttpSession session =
 																					// request.getSession();
-
 		// 로그인 중일때
 		if (session.getAttribute("loginMember") != null) {
 			return "redirect:/";
